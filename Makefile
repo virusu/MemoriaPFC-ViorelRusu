@@ -1,7 +1,7 @@
-all: memoria.pdf
+all: memoriavio.pdf
 
-memoria.pdf: memoria.tex
-	pdflatex memoria.tex; bibtex memoria; pdflatex memoria.tex; pdflatex memoria.tex
+memoriavio.pdf: memoriavio.tex
+	pdflatex memoriavio.tex; bibtex memoriavio; pdflatex memoriavio.tex; pdflatex memoriavio.tex
 
 clean:
-	rm -f memoria.dvi memoria.ps *.snm *.out *.nav *.log *.aux *.toc *.vrb *.pdf *~ *.lof *.blg *.bbl
+	rm -f memoriavio.dvi memoriavio.ps *.snm *.out *.nav *.log *.aux *.toc *.vrb *.pdf *~ *.lof *.blg *.bbl
