@@ -220,64 +220,55 @@ just before submitting.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
-\chapter{Introducción}
+\chapter{Introduction}
 \label{sec:intro} % etiqueta para poder referenciar luego en el texto con ~\ref{sec:intro}
 \pagenumbering{arabic} % para empezar la numeración de página con números
 
-En este capítulo se introduce el proyeto. Debería tener información general sobre 
-el mismo, dando la información sobre el contexto en el que se ha desarrollado.
+We live in a world of data. Data of all sorts: sensors, logs, statistics, different company data. Specifically, in the world of software projects, we also start to have thousands and thousands of data Terabytes. We should not be surprized, a single software project may have millions of lines of code, written by thousands different programmers, having contributions from houndreds of different companies, with thousands of different versions... ok, you get the idea. The problem is we, humans, lose perspective if we only observe that raw data, and it becomes completely useless. We just can't see the forest for the trees.
 
-No te olvides de echarle un ojo a la página con los cinco errores de escritura más frecuentes\footnote{\url{http://www.tallerdeescritores.com/errores-de-escritura-frecuentes}}.
+\section{The problem}
+\label{sec: TheProblem}
 
-\section{}
-\label{sec:}
+From the previous paragraph, it seems obvious that what is needed is to get simpler data from that huge amount of data. What is needed is to analyze that data in some way, organize and show it so we, humans, could have an eagle view just by a glance. That way, we could draw conclusions about that information and make better decisions, improving our world.
 
-\subsection{Estilo}
-\label{subsec:estilo}
+In the last years, many different projects have arisen with this goal in mind: provide tools that help us analyze huge amounts of data and represent it somehow. We are talking about projects such as business intelligence projects, data mining, real-time analytics and visualizations. Some of them are real Big Data projects, some of them don't have in scope such a big amount of data so we can't call them that way.
 
-Sobre el uso de las comas\footnote{\url{http://narrativabreve.com/2015/02/opiniones-de-un-corrector-de-estilo-11-recetas-para-escribir-correctamente-la-coma.html}}
+Specifically, what we want is to build different visualizations, or dashboards, of our software development data. We are applying our data analysis and visualizations to software projects in particular, but really we could apply it to any other kind of data. Out there we can find many tools to achieve our goals. There are many different solutions to the mentioned problem of respresenting data. What we want is a solution that lives in the browser. Somehow, we want the final user to interact with his browser and seeing easily different visualizations of his own data, in a new way it hasn't been shown before. We want to make our contribution to this world and make it available for everyone, we want it to be open source.
 
- \begin{figure}
-    \centering
-    \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{img/foro1}
-    \caption{Página con enlaces a hilos}
-    \label{figura:foro_hilos}
- \end{figure}
 
-{\footnotesize
-\begin{verbatim}
-    From gaurav at gold-solutions.co.uk  Fri Jan 14 14:51:11 2005
-    From: gaurav at gold-solutions.co.uk (gaurav_gold)
-    Date: Fri Jan 14 19:25:51 2005
-    Subject: [Mailman-Users] mailman issues
-    Message-ID: <003c01c4fa40$1d99b4c0$94592252@gaurav7klgnyif>
+\section{The solution}
+\label{sec:TheSolution}
 
-    Dear Sir/Madam,
-    How can people reply to the mailing list?  How do i turn off
-    this feature? How can i also enable a feature where if someone
-    replies the newsletter the email gets deleted?
-    Thanks
+We decided to use Kibana\footnote{\url{https://www.elastic.co/products/kibana}}: an open source analytics and visualization platform designed to work with Elasticsearch\footnote{\url{https://www.elastic.co/products/elasticsearch}}. Elasticsearch is a highly scalable open-source full-text search and analytics engine. It allows us to store, search, and analyze big volumes of data quickly and in near real time.
 
-    From msapiro at value.net  Fri Jan 14 19:48:51 2005
-    From: msapiro at value.net (Mark Sapiro)
-    Date: Fri Jan 14 19:49:04 2005
-    Subject: [Mailman-Users] mailman issues
-    In-Reply-To: <003c01c4fa40$1d99b4c0$94592252@gaurav7klgnyif>
-    Message-ID: <PC173020050114104851057801b04d55@msapiro>
+Kibana is a very new technology, fully under development by the time this project was realized. It provides single visualizations of different types, like pie or bar charts. Then, it is possible to save and load this visualizations in a dynamic dashboard. This is an interactive dashboard, allowing us to move each separate visualization around, and applying different filters to all data just by interacting with a single visualization for example. This makes it really easy to understand large volumes of data. We can quickly create dynamic dashboards that display changes to Elasticsearch queries in real time. All this features made Kibana a very good choice.
 
-    gaurav_gold wrote:
-    >How can people reply to the mailing list?  How do i turn off
-    this feature? How can i also enable a feature where if someone
-    replies the newsletter the email gets deleted?
+The problem with Kibana is that it has a very limited number of visualizations. Kibana team is aware of this problem and they encourage independent developers to develop their own visualizations and make it public to the community. And this is achieved developing a plugin for Kibana. Official documentation on how to create a custom plugin is poor, but luckily independent developers have succeeded and published the process. With this information, and the information we can obtain of standard plugins by reverse-engineering, reading source code, we are able to create a new plugin.
 
-    See the FAQ
-    >Mailman FAQ: http://www.python.org/cgi-bin/faqw-mm.py
-    article 3.11
-\end{verbatim}
-}
+We saw that basic 2D charts are already available in Kibana, and other developers were already working in adding more variety to it. So a good idea would be to represent the data in a whole new way for Kibana, under the form of 3D charts. There are not many 3D libraries out there written in Javascript that allow us to represent 3D functional data, and we wanted to promote the use of a new library a student at Universidad Rey Juan Carlos developed as his thesis, being in touch with the developer in order to add new functionality and report bugs.
 
-\section{Estructura de la memoria}
-\label{sec:estructura}
+In order to sum it up, we can express our solution with the following words: it is going to take the form of an easy-install plugin fully-integrated in Kibana, containing different 3D visualizations.
+
+
+\section{Objectives}
+\label{sec:Objectives}
+
+
+\begin{enumerate}
+
+\item- Store open source projects data in the elasticsearch database engine.
+\item- Use Kibana integrated tools to retrieve the data we need from elasticsearch.
+\item- Build this new 3D visualizations: pie chart, 
+\item- Integrate threedc.js 3D scenes in Kibana visualization
+\item- Integrate threedc.js visualization in Kibana dashboard
+\item- Add custom events to threedc charts in order to filter data on click
+\item- Help to improve threedc.js library by reporting bugs, adding an interface for custom data and for custom events.
+
+
+\end{enumerate}
+
+\section{Structure of this paper}
+\label{sec:structure}
 
 En esta sección se debería introducir la esctura de la memoria. Así:
 
@@ -295,33 +286,12 @@ En esta sección se debería introducir la esctura de la memoria. Así:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% OBJETIVOS %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\cleardoublepage
-\chapter{Objetivos}
-\label{chap:objetivos}
-
-\section{Objetivo general}
-label{sec:objetivo-general}
-
-
-\section{Objetivos específicos}
-label{sec:objetivos-especificos}
-
-
-\section{Planificación temporal}
-label{sec:planificacion-temporal}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ESTADO DEL ARTE %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
-\chapter{Estado del arte}
+\chapter{State of art and context}
+\label{sec:stateOfArt}
 
 Descripción de las tecnologías que utilizas en tu trabajo. Con dos o tres párrafos por cada tecnología, vale.
 
@@ -336,6 +306,30 @@ LibreSoft\footnote{\url{http://www.libresoft.es}}.
 \label{sec:seccion1}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TECNOLOGÍAS USADAS %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\chapter{Used technologies}
+\label{sec:technologies}
+
+\section{HTML5}
+
+\section{Javascript}
+
+\section{ThreeDC} 
+
+\section{ElasticSearch} 
+
+\section{Kibana} 
+
+\section{AngularJS}
+
+
+
+ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
