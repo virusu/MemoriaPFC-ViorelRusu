@@ -30,16 +30,96 @@
 \usepackage{float}  %% H para posicionar figuras
 \usepackage[nottoc, notlot, notlof, notindex]{tocbibind} %% Opciones de índice
 \usepackage{latexsym}  %% Logo LaTeX
+\usepackage{subfig}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=red,
+    filecolor=red,
+    linkcolor=red,
+    urlcolor=red
+}
 
-\title{Memoria del Proyecto}
-\author{Nombre del autor}
+%Define the listing package
+\usepackage{listings} %code highlighter
+\usepackage{color} %use color
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+ 
+%Customize a bit the look
+\lstset{ %
+backgroundcolor=\color{white}, % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+basicstyle=\footnotesize, % the size of the fonts that are used for the code
+breakatwhitespace=false, % sets if automatic breaks should only happen at whitespace
+breaklines=true, % sets automatic line breaking
+captionpos=b, % sets the caption-position to bottom
+commentstyle=\color{mygreen}, % comment style
+deletekeywords={...}, % if you want to delete keywords from the given language
+escapeinside={\%*}{*)}, % if you want to add LaTeX within your code
+extendedchars=true, % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+frame=single, % adds a frame around the code
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+keywordstyle=\color{blue}, % keyword style
+% language=Octave, % the language of the code
+morekeywords={*,...}, % if you want to add more keywords to the set
+numbers=left, % where to put the line-numbers; possible values are (none, left, right)
+numbersep=5pt, % how far the line-numbers are from the code
+numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+rulecolor=\color{black}, % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+showspaces=false, % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+showstringspaces=false, % underline spaces within strings only
+showtabs=false, % show tabs within strings adding particular underscores
+stepnumber=1, % the step between two line-numbers. If it's 1, each line will be numbered
+stringstyle=\color{mymauve}, % string literal style
+tabsize=2, % sets default tabsize to 2 spaces
+title=\lstname % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+%END of listing package%
+ 
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+ 
+%define Javascript language
+\lstdefinelanguage{JavaScript}{
+keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+keywordstyle=\color{blue}\bfseries,
+ndkeywords={class, export, boolean, throw, implements, import, this},
+ndkeywordstyle=\color{darkgray}\bfseries,
+identifierstyle=\color{black},
+sensitive=false,
+comment=[l]{//},
+morecomment=[s]{/*}{*/},
+commentstyle=\color{purple}\ttfamily,
+stringstyle=\color{red}\ttfamily,
+morestring=[b]',
+morestring=[b]"
+}
+ 
+\lstset{
+language=JavaScript,
+extendedchars=true,
+basicstyle=\footnotesize\ttfamily,
+showstringspaces=false,
+showspaces=false,
+numbers=left,
+numberstyle=\footnotesize,
+numbersep=9pt,
+tabsize=2,
+breaklines=true,
+showtabs=false,
+captionpos=b
+}
+
+\title{Thesis}
+\author{Viorel Rusu}
 
 \renewcommand{\baselinestretch}{1.5}  %% Interlineado
 
 \begin{document}
 
 %\renewcommand{\refname}{Bibliografía}  %% Renombrando
-\renewcommand{\appendixname}{Apéndice}
+\renewcommand{\appendixname}{Appendix}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PORTADA
@@ -75,7 +155,7 @@ Trabajo Fin de Carrera
 \vspace{2.5cm}
 
 \LARGE
-TÍTULO DEL TRABAJO EN MAYÚSCULAS!!
+3D Charts visualizations in Kibana
 
 \vspace{4cm}
 
@@ -293,6 +373,9 @@ En esta sección se debería introducir la esctura de la memoria. Así:
 \chapter{State of art and context}
 \label{sec:stateOfArt}
 
+
+TODO: mencionar soluciones parecidas a la mia, con otras tecnologías o que hay por ahi
+
 Descripción de las tecnologías que utilizas en tu trabajo. Con dos o tres párrafos por cada tecnología, vale.
 
 
@@ -317,19 +400,20 @@ LibreSoft\footnote{\url{http://www.libresoft.es}}.
 
 \section{HTML5}
 
-\section{Javascript}
+\section{Javascript} 
 
-\section{ThreeDC} 
+\section{Kibana}  
 
-\section{ElasticSearch} 
+TODO: Pegar las dos imágenes de Discover, visualize y el dashboard de bitergia. Explicar filtros, datos en la pestaña discover, las visualizaciones y el funcionamiento del dashboard.
 
-\section{Kibana} 
+\section{ElasticSearch}
+
+\section{ThreeDC.js}
+
+\section{Three.js} 
 
 \section{AngularJS}
 
-
-
- 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -337,20 +421,342 @@ LibreSoft\footnote{\url{http://www.libresoft.es}}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
-\chapter{Diseño e implementación}
+\chapter{Development}
 
-\section{Arquitectura general} 
-\label{sec:arquitectura}
+\section{SCRUM Methodology}
+\label{sec:scrum}
 
-figura~\ref{fig:arquitectura}.
+Scrum is an iterative and incremental agile software development framework for managing product development. In software projects, time optimization, team coordination, resources managing and task assigning is crucial in order to reach a final working product and specially fast working intermediate versions of the product. It is based on these intermediate versions delivery and offers great agility and flexibility, as small goals are set on the way, after each previous goal has been reached.
+
+There are three basic roles in this methodology:
+
+\begin{itemize}
+
+\item \textbf{Product Owner}: represents the voice of the customer and those initially interested directly in the project. This role is in charge of defining the product and its functionality. He focuses on the business side of product development. He establishes and negotiates priorities and steers the product in the right direction.
+
+\item \textbf{Development Team}: responsible for delivering shippable increments at the end of each intermediate version of the product. They do all the technical work: analyse, design, develop, test and document the product.
+
+\item \textbf{Scrum Master}: ensures that the Scrum Methodology is correctly followed. He coaches the team and product owner on the scrum process and looks for ways to improve its implementability in that particular project. He also looks and resolves impediments and distractions of the development team and keeps it focused on the key tasks. This role must not be mistaken with a project manager. A scrum master doesn't have people management responsabilities. A project manager doesn't really have a place in this methodology, the development team and scrum master are self-organizational.
+
+\end{itemize}
+
+In the Scrum Methodology, work is confined to repeatable work cycles known as sprints or iterations. Scrum is iterative and incremental. This means that product is always build on previous iteration, adding new features each time. During each sprint, the development team creates a potentially shippable product increment.
+
+
+%\ref{fig:scrum-workflow}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/scrum-workflow}
+  \caption{Scrum workflow}
+  \label{fig:scrum-workflow}
+\end{figure}
+
+
+In each sprint a Sprint Backlog is defined. It collects all the tasks that are needed to be done and who is going to do them, as well as an estimation for the time needed for each task to be completed.
+
+A natural question comes in mind at this point: can this methodology be at any help in a software project developed entirely by a single person? Although Scrum was not designed for this particular simple case, it can be very helpful. There won't be a Product Owner, a Scrum aster and a Team as such, but the methodology remains useful. This is because its main advantages are based on its flexibility and product control, and this is obtained even if the project is entirely developed by a single person! It provides control, adaptability and flexibility independently of the size of the project and number of people involved.
+
+In this project, following Sprints have been defined and developed:
+
+\begin{enumerate}
+
+\item \textbf{Sprint 0}: Investigation and technologies exploration
+\item \textbf{Sprint 1}: Separate server showing up elasticSearch data and a threeDC chart
+\item \textbf{Sprint 2}: Hello World plugin
+\item \textbf{Sprint 3}: Simple elasticSearch query and visualization in Kibana custom plugin
+\item \textbf{Sprint 4}: ThreeDC and aux modules integration in Kibana plugin (1. three cube in Kibana. 2. threedc in kibana)
+\item \textbf{Sprint 5}: 3D Pie Chart
+\item \textbf{Sprint 4}: Data filtering
+\item \textbf{Sprint 5}: 3D Bars Chart
+\item \textbf{Sprint 6}: 3D Bubbles Chart
+
+TODO: mencionar mejoras en la biblioteca threeDC según voy desarrollando estos sprints. Por ejemplo el rompecabezas que tuve con varias vis en el dashboard
+
+\end{enumerate}
+
+\section{Sprint 0}
+
+\subsection{Primitive dashboard}
+\label{subsec:old-pfc}
+
+It is worth mentioning that the Kibana-elasticSearch solution was not clear from the beginning of this project. As the main objectives were to build a customizable dashboard living in the web browser, with open source projects data, a completely different solution was started. In this section, an overview of this paralell solution will be presented, even if this path has been abandoned on our way in order to embrace Kibana.
+
+The solution we had in mind had the following architecture:
+
+%\ref{fig:arquitectura-old-pfc}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/arquitectura-old-pfc}
+  \caption{Proposed architecture}
+  \label{fig:arquitectura-old-pfc}
+\end{figure}
+
+A MySQL database stores the information about software projects. A Django Server is set up in order to retrieve this information and serve it to the client as the browser demands it. Finally, the browser executes and plots the data. This is the basic workflow in this architecture.
+
+The final result, in a basic version, can be seen in the next browser screenshot:
+
+%\ref{fig:old-pfc-dygraph}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/old-pfc-dygraph}
+  \caption{Simple browser visualization of commits timeseries}
+  \label{fig:old-pfc-dygraph}
+\end{figure}
+
+The technologies used to get to this solution were many. We will make a brief mention of the most important:
+
+\begin{itemize}
+\item Django Server: where all the application logic lives
+\item AngularJS as the front-end web application framework to provide a Single Page Application
+\item Twitter Bootstrap for the front-end design
+\item MySQL as database
+\item Dygraphs as the Javascript library to plot our data
+\end{itemize}
+
+A dynamic dashboard was to be created using more Javascript libraries. This is a complex and tedious task. But most importantly, it is an unnecesary task. In the last years, great solutions have been given to this problem. Kibana is one of them. By worrying only about a certain visualization, if we do it well, Kibana will integrate it perfectly in its own dashboard, where this visualization lives side by side and interacts with other visualizations developed. This has great advantages:
+
+\begin{itemize}
+
+\item We can focus on data analysis and a visualization each time, as we don't have to worry too much about integrating all the visualizations in a dashboard. Kibana does this in a beautiful way.
+\item We can generalize the use of our product and give it a great platform where to live and be known. With Kibana, our database can be anything, not only a certain type of data with closed schemas. 
+
+And this is enough reasons to abandon the primitive solution and decide to begin with Kibana. In the rest of this paper, we won't mention this primitive solution anymore, as it died on our way to a better solution. It provided a better comprehension of the problem and the different solutions and learning was important too, as many of these technologies and concepts are used in the rest of the project.
+
+\end{itemize}
+
+\subsection{Setting up elasticSearch and Kibana}
+\label{subsec:kibana-es}
+
+Once it was clear this project was about a Kibana plugin, we started getting familiarized with these technologies.
+
+We will start with elasticSearch. I downloaded the latest client and started storing, exploring and modifying data. The download and installation is easy, it is just needed to download an elasticSearch version from https://www.elastic.co/downloads/elasticsearch. I opted for downloading the tar version. Once uncompressed, elastic search is run by executing bin/elasticsearch contained in the folder. This sets up an elasticSearch server, listening at port 9200. No additional configuration was needed.
+
+ElasticSearch provides a REST API to interact with the database. Every operation with elasticSearch engine will be done through this API. We use 'curl' in order to make HTTP requests to a server from command line. For example, we use the following methods:
+
+\begin{lstlisting}[language=bash]
+curl -XGET 'localhost:9200/_cat/indices?v'
+curl -XPUT 'localhost:9200/customer?pretty': to create a new index
+\end{lstlisting}
+
+The first command shows all existing indexes while the second creates a new index in our elasticSearch database.
+ 
+Once indexes are created, we can put documents inside them, like this:
+
+\begin{lstlisting}
+curl -XPUT 'localhost:9200/customer/external/1?pretty
+{
+  "name": "John Doe"
+}'
+\end{lstlisting}
+Every operation or query we need to perform is done through this HTTP API.
+
+These are basic operations. What we want is to work with a great amount of data. We can find test data for elasticSearch out there but we wanted to analyze specifically open source projects data. In my github\footnote{\url{https://github.com/virusu/Docs/blob/master/opnfv_git_es.json.gz}} you cand find a JSON file with data about opnfv project in github, already in a elasticSearch format. We load this file into elasticSearch using taskrabbit tool for managing indexes: 'elastic-dump'\footnote{\url{https://github.com/taskrabbit/elasticsearch-dump}}:
+
+\begin{lstlisting}
+elasticdump --input=opnfv_git_es.json --output=http://localhost:9200/commits-index
+\end{lstlisting}
+This will be the index we will work with in the rest of the project.
+
+Next, we install Kibana. We decided to install the development version directly, following the instructions that elastic team officially gives to developers in "CONTRIBUTING.md"\footnote{\url{https://github.com/elastic/kibana/blob/master/CONTRIBUTING.md}}. The latest version was an alpha version of Kibana 5.0.0, and this will be the version we work through the rest of the project. This is not such a simple process, and can bring some little descriptive errors like in my case when running kibana in development mode with "npm start" inside kibana directory. This error was the following:
+\begin{lstlisting}
+failed to watch files! Error: watch /home/vio/kibanadev2/src/plugins ENOSPC at exports._errnoException (util.js:870:11)
+\end{lstlisting}
+Investigating about the error, it was because Kibana run in dev mode requires watching a hundreds of files at the same time, looking for changes and recompiling everything to bring the new changes into the running kibana instance. What I did is to permanently modify the maximum notify watchers variable in sysctl:
+
+\begin{lstlisting}
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+\end{lstlisting}
+
+Once Kibana runs correctly, the first time we access it it will ask us to configure an index pattern. We will do this and at this point everything is set up to start focusing on our plugin development.
+
+
+\section{Sprint 1} Separate server showing up elasticSearch data and threeDC graphics
+
+This is the only Sprint where we focus on anything separately from Kibana. What we aim here is to have a simple server having two different separate functionalities. On the one side, we want this server to interact with elasticSearch on its own, without Kibana. We take advantage of this server and take into action the angularJS framework. On the other hand, we want it to show threeDC charts, loading all the libraries needed. Finally, a client through a browser will view a single page with two divs, one containing some sort of elasticSearch data and the other plotting some sort of threeDC charts. This will set the basis for a much more complex server like Kibana, with much more complex queries to elasticSearch and more issues with the threeeDC library.
+
+First of all, we need a server. We decided to use the python built-in HTTP server for its simplicity. Just by running the server in a certain folder, it automatically serves the files in that folder through default port 8000. The command used for this couldn't be simpler:
+
+\begin{lstlisting}
+python -m SimpleHTTPServer
+\end{lstlisting}
 
 \begin{figure}
   \centering
-  \includegraphics[width=9cm, keepaspectratio]{img/arquitectura}
-  \caption{Estructura del parser básico}
-  \label{fig:arquitectura}
+  \includegraphics[width=15cm, keepaspectratio]{img/old-pfc-dygraph}
+  \caption{Simple browser visualization of commits timeseries}
+  \label{fig:old-pfc-dygraph}
 \end{figure}
 
+So whatever is put in an index.html file, the server serves it. We start creating and modifying this file, which you can completely see at the appendix \ref{sec:appendix} of this paper. You can see the final result of this Sprint in figure \ref{fig:index-ES-threeDC}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/index-ES-threeDC}
+  \caption{Html page showing the result of an ES query and a threeDC chart}
+  \label{fig:index-ES-threeDC}
+\end{figure}
+
+Now we will focus on the two functionalities, on separate.
+
+\subsection{ElasticSearch interaction}
+\label{subsec:es-interaction}
+
+We need a way to interact with elasticSearch. Elastic team provides different APIs for this, one for each of the main programming languages. As it's expected, there is one for Javascript. We will use the Angular Build API. So we do the following in our case.
+
+Inside the angular module app, we create a service named client which we can use directly to make queries from the angular controller.
+
+\begin{lstlisting}[language=JavaScript]
+    ExampleApp.service('client', function (esFactory) {
+      return esFactory({
+        host: 'localhost:9200',
+        apiVersion: '2.3',
+        log: 'trace'
+      });
+    });
+\end{lstlisting}
+
+Now, in the controller, we call a method of this API to retrieve some information from elasticSearch. At this point, it is not important what kind of information we retrieve. For example, we can call the client.state method\footnote{\url{https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html\#api-cluster-state}}, which is used to get comprehensive details about the state of the whole cluster.
+
+\begin{lstlisting}
+      client.cluster.state({
+        metric: [
+          'cluster_name',
+          'nodes',
+          'master_node',
+          'version'
+        ]
+        })
+      .then(function (resp) {
+        $scope.clusterState = resp;
+        }
+\end{lstlisting}
+
+Then, the result is attached to the scope so it is easy to print this result directly from the html through angular. The result can be seen in the first section of the previous figure \ref{fig:index-ES-threeDC}. The complete code in detail can also be found in Appendix \ref{sec:script.js}.
+
+
+\subsection{threeDC graph}
+\label{subsec:threedc-graph}
+
+Let's build our first real threeDC graph. In the next paragraphs, only main scene scheleton will be described. Details and secondary commentaries will be left for the reader to investigate in Appendix \ref{sec:script.js}.
+
+First, we create all the three.js objects needed for a scene to correctly be visualized: camera, renderers and light:
+
+\begin{lstlisting}
+      // set up camera
+   camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+   // add the camera to the scene
+   scene.add(camera);
+   // the camera defaults to position (0,0,0)
+   //    so pull it back (z = 400) and up (y = 100) and set the angle towards the scene origin
+   camera.position.set(0,150,400);
+   camera.lookAt(scene.position);
+
+   renderer = new THREE.WebGLRenderer( {antialias:true} );
+   renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+   renderer.setClearColor( 0xd8d8d8 );
+   
+   var light = new THREE.PointLight(0xffffff,0.8);
+   light.position.set(0,200,250);
+   scene.add(light);
+\end{lstlisting}
+
+We get into threeDC library now. We pass all this 'three' elements to the threeDC library, to initialize a threeDC scene. Next, we create for example a 'pointsCloudChart' object, which paints an entire cloud made of points. In this case, we just use random data to paint that object. 
+
+\begin{lstlisting}
+  THREEDC.initializer(camera,scene,renderer,container);
+
+  var cloud= THREEDC.pointsCloudChart([0,0,0]);
+  cloud.getPoints(getRandomPoints(1000));
+
+  THREEDC.renderAll();
+\end{lstlisting}
+
+The animate loop can't be forgotten, it is where all the updates and renders itself to the infinite. This function is called only once from the main code, but it will execute itself over and over again.
+
+\begin{lstlisting}
+function animate()
+{
+   requestAnimationFrame( animate );
+   renderer.render( scene, camera );
+   THREEDC.controls.update();
+}
+\end{lstlisting}
+
+
+With these basic structure (threeDC, elasticSearch and angularJS) we can start getting at work with Kibana, which undoubtely is the titan  of this paper.
+
+
+\section{Sprint 2: Hello World plugin}
+
+In this section, a very basic plugin in Kibana will be built from scratch. The final result can be seen in figure
+
+In Kibana, developed plugins go into Kibana/plugins/ directory. The first thing to know about Kibana plugins is that every plugin is actually a npm module. Like every npm module, two basic files need to be created:
+
+\begin{itemize}
+
+\item package.json. We specify our plugin name here.
+
+\begin{lstlisting}
+{
+  "name": "sprint2_plugin",
+  "version": "5.0.0"
+}
+\end{lstlisting}
+
+\item index.js. Here, our module has to instantiate a new instance of Kibana plugin, creating a new plugin of type 'visualization' (there are other type of plugins like completely separated apps) and registering it in the following way:
+
+\begin{lstlisting}
+export default function (kibana) {
+	
+	return new kibana.Plugin({
+		uiExports: {
+			visTypes: [
+				'plugins/sprint2_plugin/sprint2'
+      		]
+    	}
+  	});
+};
+\end{lstlisting}
+
+\end{itemize}
+
+In order to define a basic functionality showing up "Hello World" inside the visualization plugin, we have to define the following two files also in directory public:
+
+\begin{itemize}
+
+\item sprint2.js. In this file, we define our visualization setting parameters like a title, a description or an icon to appear in visualization list. We also define here the controller for our div in Kibana, which we will describe in the next paragraph. Full code can be seen in appendix xxx(sprint2.js)
+
+\item sprint2.html. In this file, a basic div is defined. It is defined as a controller, so a basic angularJS structure is used to attach a parameter named 'name' and show it in Kibana through the template. 
+\end{itemize}
+
+In figure \ref{fig:hello-world-menu-vis} our first visualization plugin can be seen in the list, together with default Kibana visualization plugins. Figure \ref{fig:hello-world-plugin} shows the final plugin result. With this basic plugin, we have the skeleton to build everything we want.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/hello-world-menu-vis}
+  \caption{Hello World plugin in visualizations plugin list}
+  \label{fig:hello-world-menu-vis}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/hello-world-plugin}
+  \caption{Hello World plugin result}
+  \label{fig:hello-world-plugin}
+\end{figure}
+
+
+\section{Modulos en Javascript}
+
+
+Explicar sobre los módulos. 
+
+vr vis es un modulo AMD. Necesita estar wrapped en define(function(require) ...)
+
+ver https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizations/
+
+
+\section{Sprint X}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -433,16 +839,366 @@ las tecnologías utilizadas y demás.
 
 \cleardoublepage
 \appendix
-\chapter{Manual de usuario}
-\label{app:manual}
+\label{sec:appendix}
+\chapter{Appendix}
+
+\section{index.html from Sprint1}
+
+Complete index.html file from Sprint 1
+
+\begin{lstlisting}[frame=single]
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Threeboard</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
+	</head>
+	<body ng-app="ExampleApp">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r78/three.min.js"></script>
+		<script src="js/FontUtils.js"></script>
+		<script src="js/TextGeometry.js"></script>
+		<script src="js/Projector.js"></script>
+		<script src='js/threex.domevents.js'></script>
+		<script src="js/Detector.js"></script>
+		<script src="js/Stats.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="js/THREEx.WindowResize.js"></script>
+		<script src="js/THREEx.FullScreen.js"></script>
+		<script type="text/javascript" src='js/DAT.GUI.min.js'></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+		<script src="js/3dc.js"></script>
+		<div id="ThreeJS" style="position: absolute; left:0px; top:0px">
+		<script src="fonts/gentilis_bold.typeface.js"></script>
+		<script src="fonts/gentilis_regular.typeface.js"></script>
+		<script src="fonts/optimer_bold.typeface.js"></script>
+		<script src="fonts/optimer_regular.typeface.js"></script>
+		<script src="fonts/helvetiker_bold.typeface.js"></script>
+		<script src="fonts/helvetiker_regular.typeface.js"></script>
+		<script src="fonts/droid_sans_regular.typeface.js"></script>
+		<script src="fonts/droid_sans_bold.typeface.js"></script>
+		<script src="fonts/droid_serif_regular.typeface.js"></script>
+		<script src="fonts/droid_serif_bold.typeface.js"></script>
+
+  <!-- include npm modules in proper order -->
+  <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/elasticsearch-browser/elasticsearch.angular.min.js"></script>
+		<script src="script.js"></script>
+
+  <!-- attach the ExampleController to our main content -->
+  <div ng-controller="ExampleController" class="container">
+    <h1>Angular + Elasticsearch</h1>
+
+    <!-- if there is an error, display its message -->
+    <div ng-if="error" class="alert alert-danger" role="alert">{{error.message}}</div>
+
+    <!-- if clusterState is available, display it as formatted json -->
+    <div ng-if="clusterState" class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cluster State</h3>
+      </div>
+      <div class="panel-body">
+        <pre>{{clusterState | json}}</pre>
+      </div>
+    </div>
+  </div>
+
+	</body>
+</html>
+	</body>
+</html>
+\end{lstlisting}
+
+\section{script.js from Sprint1}
+\label{sec:script.js}
+
+\begin{lstlisting}[frame=single]
+
+// standard global variables
+var container, scene, camera, renderer, stats;
+
+//JSON data saved here
+var json_data;
 
 
+ elasticstuff();
+
+// initialization
+  //getJSON call, draw meshes with data
+   $.getJSON("jsons/scm-commits.json", function(data) {
+      json_data=data;
+      init();
+      // animation loop / game loop
+      animate();
+   });
+
+///////////////
+// FUNCTIONS //
+///////////////
+
+function elasticstuff() {
+  //elasticsearch and angular
+    // App module
+    //
+    // The app module will contain all of the components the app needs (directives,
+    // controllers, services, etc.). Since it will be using the components within
+    // the elasticsearch module, define it a dependency.
+    var ExampleApp = angular.module('ExampleApp', ['elasticsearch']);
+
+    // Service
+    //
+    // esFactory() creates a configured client instance. Turn that instance
+    // into a service so that it can be required by other parts of the application
+    ExampleApp.service('client', function (esFactory) {
+      return esFactory({
+        host: 'localhost:9200',
+        apiVersion: '2.3',
+        log: 'trace'
+      });
+    });
+
+    // Controller
+    //
+    // It requires the "client" service, and fetches information about the server,
+    // it adds either an error or info about the server to $scope.
+    //
+    // It also requires the esFactory to that it can check for a specific type of
+    // error which might come back from the client
+    ExampleApp.controller('ExampleController', function ($scope, client, esFactory) {
+
+      client.cluster.state({
+        metric: [
+          'cluster_name',
+          'nodes',
+          'master_node',
+          'version'
+        ]
+        })
+      .then(function (resp) {
+        $scope.clusterState = resp;
+        $scope.error = null;
+      })
+      .catch(function (err) {
+        $scope.clusterState = null;
+        $scope.error = err;
+
+        // if the err is a NoConnections error, then the client was not able to
+        // connect to elasticsearch. In that case, create a more detailed error
+        // message
+        if (err instanceof esFactory.errors.NoConnections) {
+          $scope.error = new Error('Unable to connect to elasticsearch. ' +
+            'Make sure that it is running and listening at http://localhost:9200');
+        }
+      });
+
+    });
+}
+
+function init () {
+
+   ///////////
+   // SCENE //
+   ///////////
+   scene = new THREE.Scene();
+
+   ////////////
+   // CAMERA //
+   ////////////
+   // set the view size in pixels (custom or according to window size)
+   var SCREEN_WIDTH = window.innerWidth/2;
+   var SCREEN_HEIGHT = window.innerHeight/2;
+   // camera attributes
+   var VIEW_ANGLE = 45;
+   var ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT;
+   var NEAR = 0.1;
+   var FAR = 20000;
+      // set up camera
+   camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+   // add the camera to the scene
+   scene.add(camera);
+   // the camera defaults to position (0,0,0)
+   //    so pull it back (z = 400) and up (y = 100) and set the angle towards the scene origin
+   camera.position.set(0,150,400);
+   camera.lookAt(scene.position);
+
+   //////////////
+   // RENDERER //
+   //////////////
+   renderer = new THREE.WebGLRenderer( {antialias:true} );
+   renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+   renderer.setClearColor( 0xd8d8d8 );
+
+   // attach div element to variable to contain the renderer
+   container = document.getElementById( 'ThreeJS' );
+   // attach renderer to the container div
+   container.appendChild( renderer.domElement );
+
+    ////////////
+  // EVENTS //
+  ////////////
+
+
+
+  // automatically resize renderer
+  THREEx.WindowResize(renderer, camera);
+    // toggle full-screen on given key press
+  THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
+
+   ///////////
+   // LIGHT //
+   ///////////
+   var light = new THREE.PointLight(0xffffff,0.8);
+   light.position.set(0,200,250);
+   scene.add(light);
+   var ambientLight = new THREE.AmbientLight(0x111111);
+   // scene.add(ambientLight);
+
+   // create a set of coordinate axes to help orient user
+   //    specify length in pixels in each direction
+   var axes = new THREE.AxisHelper(1000);
+   scene.add(axes);
+
+  //STATS
+  stats = new Stats();
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.bottom = '0px';
+  stats.domElement.style.zIndex = 100;
+  container.appendChild( stats.domElement );
+
+   //////////////
+   // CUSTOM //
+   //////////////
+
+   // most objects displayed are a "mesh":
+   //  a collection of points ("geometry") and
+   //  a set of surface parameters ("material")
+
+  var parsed_data=[];
+
+  // Crossfilter and dc.js format
+  json_data.values.forEach(function (value) {
+    var record = {}
+    json_data.names.forEach(function (name, index) {
+        if (name == "date") {
+          var date = new Date(value[index]*1000);
+          record[name] = date;
+          record.month = new Date(date.getFullYear(), date.getMonth(), 1);
+          record.hour = date.getUTCHours();
+        } else {
+          record[name] = value[index];
+        }
+    });
+    parsed_data.push(record);
+  });
+
+  //example data for cloud
+
+  function getRandomPoints(numberOfPoints){
+    var points=[];
+    for (var i = 0; i < numberOfPoints; i++) {
+
+      points[i]={x:Math.random()*100,y:Math.random()*100,z:Math.random()*100};
+     // console.log(points[i]);
+    };
+    return points;
+  }
+
+ //CUSTOM DASHBOARD//
+
+  THREEDC.initializer(camera,scene,renderer,container);
+
+  var cloud= THREEDC.pointsCloudChart([0,0,0]);
+  cloud.getPoints(getRandomPoints(1000));
+
+ // var bars= THREEDC.barsChart([0,0,0]);
+  //bars.group(groupByRepo);
+
+  THREEDC.renderAll();
+
+}
+
+function animate()
+{
+   requestAnimationFrame( animate );
+   render();
+   update();
+}
+
+function render()
+{
+   renderer.render( scene, camera );
+}
+
+function update()
+{
+  THREEDC.controls.update();
+  stats.update();
+  
+\end{lstlisting}[frame=single]
+
+\section{sprint2.js from Sprint2}
+\label{sec:sprint2.js}
+
+
+\begin{lstlisting}[frame=single]
+
+  // Create an Angular module for this plugin
+  var module = require('ui/modules').get('sprint2');
+  // Add a controller to this module
+  module.controller('HelloController', function($scope, $timeout) {
+
+    $scope.name="Viorel Rusu"
+
+  });
+
+
+export default function Sprint2Provider(Private) {
+    var TemplateVisType = Private(require('ui/template_vis_type/template_vis_type'));
+    return new TemplateVisType({
+      name: 'Sprint2', // the internal id of the visualization
+      title: 'Sprint2', // the name shown in the visualize list
+      icon: 'fa-hand-spock-o', // the class of the font awesome icon for this
+      description: 'Basic hello world plugin', // description shown to the user
+      requiresSearch: false, // Cannot be linked to a search
+      template: require('plugins/sprint2_plugin/sprint2.html') // Load the template of the visualization
+    });
+  }
+
+  require('ui/registry/vis_types').register(Sprint2Provider);
+  
+\end{lstlisting}[frame=single]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BIBLIOGRAFIA %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
+\chapter{Bibliography}
+\label{sec:bib}
+
+Scrum:
+http://scrummethodology.com/scrum-sprint/
+
+Javascript:
+Marijn Haverbeke, \textit{Eloquent JavaScript}. 2014
+http://www.w3schools.com/js/
+
+Node and npm:
+https://www.sitepoint.com/beginners-guide-node-package-manager/
+
+Angular:
+http://campus.codeschool.com/courses/shaping-up-with-angular-js
+https://www.toptal.com/angular-js/a-step-by-step-guide-to-your-first-angularjs-app
+http://www.w3schools.com/angular/
+
+Kibana plugins:
+https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-basics/
+https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizations/
+https://www.timroes.de/2015/12/06/writing-kibana-4-plugins-visualizations-using-data/
+https://www.timroes.de/2016/02/17/writing-kibana-4-plugins-field-formatters/
+https://www.timroes.de/2016/02/21/writing-kibana-plugins-custom-applications/
 
 % Las siguientes dos instrucciones es todo lo que necesitas
 % para incluir las citas en la memoria
