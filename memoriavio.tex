@@ -466,9 +466,9 @@ In this project, following Sprints have been defined and developed:
 \item \textbf{Sprint 3}: Simple elasticSearch query and visualization in Kibana custom plugin
 \item \textbf{Sprint 4}: ThreeDC and aux modules integration in Kibana plugin (1. three cube in Kibana. 2. threedc in kibana)
 \item \textbf{Sprint 5}: 3D Pie Chart
-\item \textbf{Sprint 4}: Data filtering
-\item \textbf{Sprint 5}: 3D Bars Chart
-\item \textbf{Sprint 6}: 3D Bubbles Chart
+\item \textbf{Sprint 6}: Data filtering
+\item \textbf{Sprint 7}: 3D Bars Chart
+\item \textbf{Sprint 8}: 3D Bubbles Chart
 
 TODO: mencionar mejoras en la biblioteca threeDC según voy desarrollando estos sprints. Por ejemplo el rompecabezas que tuve con varias vis en el dashboard
 
@@ -745,8 +745,242 @@ In figure \ref{fig:hello-world-menu-vis} our first visualization plugin can be s
   \label{fig:hello-world-plugin}
 \end{figure}
 
+\section{Sprint 3: Simple elasticSearch query and visualization in Kibana custom application}
 
-\section{Modulos en Javascript}
+In this sprint a new app will be created inside Kibana and elasticSearch will be queried from this app. We will make this query the simplest we can, for example querying the total number of documents in our index.
+
+This will be the basic structure of our application:
+
+\begin{lstlisting}
+export default function (kibana) {
+  return new kibana.Plugin({
+    require: ['elasticsearch'],
+
+    uiExports: {
+      
+      app: {
+        title: 'My new app plugin',
+        description: 'my first elasticsearch requests in background',
+        main: 'plugins/elasticsearch_status_vio/app'
+      }
+    }
+});
+\end{lstlisting}
+
+We must load the elasticsearch module here, by specifying it in the require array. This module will be necessary to make elasticsearch queries, as we will do later in this sprint. The rest of the parameters speak on their on: title, description and main file. The way we specify that this is not a visualization type to Kibana is by specifying this inside the uiExports with the 'app' key instead of 'visTypes' as done in the previous sprint for example.
+
+Next, we need to query elasticSearch in some way. We don't want to use the javascript API, this would totally ignore Kibana and is not a clean solution. We want to use it through Kibana, and make Kibana do the queries to elasticsearch, through the elasticsearch module. This is the clean solution. In order to do this, we create a new Kibana Server API in the following way:
+
+\begin{lstlisting}
+import api from './server/routes/elasticsearch_routes';
+
+    init(server, options) {
+      // Add server routes and initalize the plugin here
+      api(server);
+    } 
+\end{lstlisting}
+
+The init method adds a new server API to Kibana. In the api file, we specify the api calls we want to define. In our case, we define the /ncommits GET server API call in the following way:
+
+\begin{lstlisting}
+export default function (server) {
+  let call = server.plugins.elasticsearch.callWithRequest;
+  server.route({
+    path: '/api/elasticsearch_status/ncommits',
+    method: 'GET',
+    handler(req, reply) {
+      call(req, 'count',{index: 'commits-index'}).then(function (response) {
+        // Return just the names of all indices to the client.
+        reply(response.count);
+      });
+    }
+  });
+}
+\end{lstlisting}
+
+The elasticsearch callWithRequest utility must be used in order to access elasticSearch. This method receives as parameters the request from our API (req) and then the name of the function from the elasticSearch Javascript Client to be called. In our case, we use the 'count' method to count the total documents in the commits-index. This method returns a promise that will be resolved with the response from Elasticsearch, and we only have to access the 'count' parameter from the response in order to get the answer returned from elasticSearch to our query.
+
+For routing between pages (in this case it will be only one page), we have to explicitly enable uiRoutes and define our route in our app.js file:
+
+\begin{lstlisting}
+uiRoutes.enable();
+.when('/ncommits', {
+  template: ncommitsTemplate,
+  controller:'elasticsearchNCommitsController',
+  controllerAs: 'ctrl'
+});
+
+uiModules
+.get('app/elasticsearch_status_vio', [])
+.controller('elasticsearchNCommitsController', function ($http) {
+  $http.get('../api/elasticsearch_status/ncommits').then((response) => {
+    this.ncommits = response.data;
+  });
+});
+\end{lstlisting}
+
+For a detailed explanation on routes please consult the excellent Tim Roes tutorial about writing  custom applications(1), in which this sprint was based.
+
+Finally, we define the ncommitsTemplate mentioned as follows:
+
+\begin{lstlisting}
+<div class="container">
+  <div class="row">
+    <div class="col-12-sm">
+			<a href="#/">Index list</a>
+      <h1>Number of commits in commits_index: {{ ctrl.ncommits }}</h1>
+    </div>
+  </div>
+</div>
+\end{lstlisting}
+
+The final result can be seen in Fig \ref{fig:elasticsearch-app-ncommits}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/elasticsearch-app-ncommits}
+  \caption{Custom app plugin result}
+  \label{fig:elasticsearch-app-ncommits}
+\end{figure}
+
+\section{Sprint 4: ThreeDC and aux modules integration in Kibana plugin (1. three cube in Kibana. 2. threedc in kibana)}
+
+Once plugin creation and interaction with elasticsearch from Kibana is clear, the next logical step is to incorporate our visual libraries in a plugin in Kibana. In this Sprint a basic threeDC scene will be created and correctly integrated in a visualization plugin in Kibana. No elasticSearch data will be used yet.
+
+In order to progressively move toward the objective, a basic three.js scene will be integrated before integrating a more complex threeDC.js scene.
+
+\subsection{Three.js scene integration}
+\label{subsec:threejsint}
+
+In order to insert a basic three.js scene in Kibana, the following steps were followed:
+
+1. Add three.js library through node package manager.
+To add three.js library is easy because it is already packed online (https://www.npmjs.com/package/three) and ready to install via npm simply with the 'npm install three' command.
+
+2. From the main plugin file, the new library can easily be imported:
+
+\begin{lstlisting}
+THREE = require("three");
+\end{lstlisting}
+
+Then, it can be used across this file wherever we consider
+
+3. A controller has been created manipulating a basic three.js rotating cube:
+
+\begin{lstlisting}
+module.controller('3DCubeController', function($scope, $element){
+
+
+    var camera, scene, renderer;
+    var geometry, material, mesh;
+
+    init();
+    animate();
+
+
+    function init() {
+
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.z = 1000;
+
+        scene = new THREE.Scene();
+
+        geometry = new THREE.BoxGeometry(200, 200, 200);
+        material = new THREE.MeshBasicMaterial({
+            color: 0xff0000,
+            wireframe: true
+        });
+
+        mesh = new THREE.Mesh(geometry, material);
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+		
+		
+        var idchart = $element.children().find(".3Dcubechart");
+        
+   		container = idchart[0];
+        container.appendChild(renderer.domElement);
+    }
+
+    function animate() {
+
+        requestAnimationFrame(animate);
+
+        mesh.rotation.x += 0.01;
+        mesh.rotation.y += 0.02;
+
+        renderer.render(scene, camera);
+
+    }
+    
+	});
+\end{lstlisting}
+
+The key in correctly inserting the scene in Kibana is in using the \$element service\footnote{\url{https://docs.angularjs.org/api/ng/function/angular.element}}, as it can be seen in the controller declaration in the code above. This angularJS service allows us to access jQuery functions from the controller. So jQuery functions children() and find() are used in order to find the correct div to insert in. Once found, all the scene is inserted here by using the appendChild HTML DOM manipulation function and the DOM element containing the scene returned from the renderer itself.
+
+4. And in the main html file a canvas is defined to be controlled by the controller, and to contain a div to be found by jQuery service \$element.
+
+
+\begin{lstlisting}
+<canvas id="glcanvas" width="640" height="480" ng-controller="3DCubeController">
+	   	<div class="3Dcubecontainer">
+		<div class="3Dcubechart"> </div>
+		</div>
+</canvas>
+\end{lstlisting}
+
+The final result can be seen in Figure \ref{fig:only-threejsprueba}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/only-threejsprueba}
+  \caption{Three.js scene correctly inserted in Kibana}
+  \label{fig:only-threejsprueba}
+\end{figure}
+
+
+\subsection{ThreeDC.js scene integration}
+\label{subsec:threedcjsint}
+
+This section may seem obvious, but it's very tricky. ThreeDC.js library, in order to work properly, needs a set of external libraries itself. These modules are extensions that allow different functionality to the threeDC scene, like adding mouse interactivity or providing threejs fonts or text operations. We won't get into detail at this point, as threeDC already uses all these modules and it's not something new to this project.
+
+Everythig would be easy if we could just include these files in the html. There would be a global variables scope where all of them would be attached and would be working properly. This is what threeDC.js library does. But in Kibana this can not be done, because everything is a module and all the variables have a scope. So, in order to solve this, we have to examine how exactly each one of these modules work and what they do.
+
+The majority of these auxiliary modules simply extend the THREE object we already have from the library, by adding another property to this object. In these cases, by simply doing a require() of that file, the THREE object is correctly extended.
+
+\begin{lstlisting}
+  require("plugins/3D_kibana_charts_vis/FontUtils");
+  require("plugins/3D_kibana_charts_vis/TextGeometry");
+  require("plugins/3D_kibana_charts_vis/Projector");
+  require("plugins/3D_kibana_charts_vis/OrbitControls");
+\end{lstlisting}
+
+Another case is that in the auxiliary modules a new object is created. In these cases, a simple require() is not enough. We have to export the object from inside the file with module.exports, so that it can correctly be imported from our main file. This is the case even with the threeDC library itself.
+
+\begin{lstlisting}
+ THREEDC = require("plugins/3D_kibana_charts_vis/3dc");
+ THREEx = require("plugins/3D_kibana_charts_vis/threex.domevents");
+ Detector = require("plugins/3D_kibana_charts_vis/Detector");
+\end{lstlisting}
+
+Also, helvetiker bold font has to be imported and loaded as follows. It is necessary for threeDC to work properly.
+
+\begin{lstlisting}
+  var typeface2 = require('plugins/3D_kibana_charts_vis/helvetiker_bold.typeface');
+  THREE.typeface_js.loadFace(typeface2);
+\end{lstlisting}
+
+Once imported all these modules, threeDC scenes can be created. Basic scenes have been created and correctly tested, but won't be included here for briefty and because there there will be plenty of them in the following sprints.
+
+\section{Sprint 5: 3D Pie Chart}
+
+At this point in our progress, the plugin has the following structure:
+
+
+
+
+Modulos en Javascript
 
 
 Explicar sobre los módulos. 
@@ -755,8 +989,10 @@ vr vis es un modulo AMD. Necesita estar wrapped en define(function(require) ...)
 
 ver https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizations/
 
+\section{Sprint 6: Data filtering}
+\section{Sprint 7: 3D Bars Chart}
+\section{Sprint 8: 3D Bubbles Chart}
 
-\section{Sprint X}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1199,6 +1435,7 @@ https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizations
 https://www.timroes.de/2015/12/06/writing-kibana-4-plugins-visualizations-using-data/
 https://www.timroes.de/2016/02/17/writing-kibana-4-plugins-field-formatters/
 https://www.timroes.de/2016/02/21/writing-kibana-plugins-custom-applications/
+
 
 % Las siguientes dos instrucciones es todo lo que necesitas
 % para incluir las citas en la memoria
