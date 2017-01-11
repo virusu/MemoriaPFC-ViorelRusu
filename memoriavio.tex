@@ -369,24 +369,8 @@ En esta sección se debería introducir la esctura de la memoria. Así:
 % ESTADO DEL ARTE %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\cleardoublepage
-\chapter{State of art and context}
-\label{sec:stateOfArt}
-
-
 TODO: mencionar soluciones parecidas a la mia, con otras tecnologías o que hay por ahi
 
-Descripción de las tecnologías que utilizas en tu trabajo. Con dos o tres párrafos por cada tecnología, vale.
-
-
-Puedes citar libros, como el de Bonabeau et al. sobre procesos estigmérgicos~\cite{bonabeau:_swarm}. % Nota que el ~ añade un espacio en blanco, pero no deja que exista un salto de línea. Imprescindible ponerlo para las citas.
-
-También existe la posibilidad de poner notas al pie de página, por ejemplo, 
-una para indicarte que visite la página de 
-LibreSoft\footnote{\url{http://www.libresoft.es}}.
-
-\section{Sección 1} 
-\label{sec:seccion1}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -395,7 +379,7 @@ LibreSoft\footnote{\url{http://www.libresoft.es}}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
-\chapter{Used technologies}
+\chapter{Used technologies and Context}
 \label{sec:technologies}
 
 \section{HTML5}
@@ -414,7 +398,11 @@ TODO: Pegar las dos imágenes de Discover, visualize y el dashboard de bitergia. 
 
 \section{AngularJS}
 
+\section{Context}
 
+Mention ManyEyes, Freeboard, Carabel
+
+Search for dashboards 3D - similar solutions - if there are
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DISEÑO E IMPLEMENTACIÓN %
@@ -469,6 +457,21 @@ In this project, following Sprints have been defined and developed:
 \item \textbf{Sprint 6}: Data filtering
 \item \textbf{Sprint 7}: 3D Bars Chart
 \item \textbf{Sprint 8}: 3D Bubbles Chart
+
+TODO
+
+Sprint 1: First steps with Kibana plugins, elasticSearch and threeDC chart
+1.1 Separate server showing up elasticSearch data and a threeDC chart
+1.2 Simple elasticSearch query and visualization in Kibana custom plugin
+
+Sprint 2: First visualization plugin
+2.1 Hello World Plugin
+2.2 Three integration
+2.3 ThreeDC integration - First Pie
+
+Sprint 3: Visualize elasticSearch real data
+
+Sprint X: Kibana integration: comment filters
 
 TODO: mencionar mejoras en la biblioteca threeDC según voy desarrollando estos sprints. Por ejemplo el rompecabezas que tuve con varias vis en el dashboard
 
@@ -975,10 +978,6 @@ Once imported all these modules, threeDC scenes can be created. Basic scenes hav
 
 \section{Sprint 5: 3D Pie Chart}
 
-At this point in our progress, the plugin has the following structure:
-
-
-
 
 Modulos en Javascript
 
@@ -1000,10 +999,120 @@ ver https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
-\chapter{Resultados}
+\chapter{Design and results}
+
+\section{Introduction}
+
+\section{Architecture}
+
+\section{User Guide}
+
+In this section every functionality of the plugin will be explained. A detailed guide on how to produce each type of visualization will be given, as welll as every possibility every visualization type has.
+
+After correctly installing the plugin, three new visualizations type should be available in the Kibana Visualizations menu, as shown in Figure \ref{fig:my3viz-inmenu}
 
 
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/my3viz-inmenu}
+  \caption{The 3 new plugin visualizations in Kibana menu}
+  \label{fig:my3viz-inmenu}
+\end{figure}
 
+Next, each visualization and its functionalities will be explained separately.
+
+\subsection{3D Pie Chart}
+
+After selecting "3D Pie Chart" in the menu and selecting the index pattern to work with (Kibana asks for it), we come across with the 3D pie aggregations menu, as seen in Figure \ref{fig:pie-aggregations-menu} borded with a red rectangle.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/pie-aggregations-menu}
+  \caption{3D Pie visualization aggregations menu}
+  \label{fig:pie-aggregations-menu}
+\end{figure}
+
+The 3D pie visualization needs exactly one buckets aggregations and one metrics aggregation. By clicking on 'Slices' we are choosing what each slice of our pie will represent, the buckets in which our data will fall into. We could choose, for example, a Date Histogram, and then each slice will represent a date interval. By clicking on 'Slice Size' we are choosing what the size of each slice means, the metrics of the data. For example, we could choose the 'Count' aggregation, in which case the size of each slice will be determined by the number of documents that fall into each bucket.
+
+The result of such an example can be seen in Figure \ref{fig:onlypie3D}. When the mouse moves over a slice, info about that slice is displayed:
+\begin{itemize}
+	\item \textbf{key}: shows the bucket which that slice represents
+	\item \textbf{value}: shows the metric we configured in aggregations menu
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/onlypie3D}
+  \caption{The 3 new plugin visualizations in Kibana menu}
+  \label{fig:onlypie3D}
+\end{figure}
+
+\subsection{3D Bars Chart}
+
+After selecting "3D Bars Chart" in the menu and selecting the index pattern to work with, we come across with the 3D bars aggregations menu, as seen in Figure \ref{fig:bars-aggregations-menu} borded with a red rectangle.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/bars-aggregations-menu}
+  \caption{3D Bars visualization aggregations menu}
+  \label{fig:bars-aggregations-menu}
+\end{figure}
+
+The 3D bars visualization needs exactly two buckets aggregations and one metric aggregation. The first buckets aggregation is for the values in X axis and the second buckets aggregation is for the Y axis. For example, we could choose to group our date in X axis by a Date Histogram, and then in Y axis by some Terms. We define these by clicking on the 'Bars' button and remembering to click the 'Add sub-buckets' button to define the Y axis. We define the height of each bar by defining the metric clicking on 'Bars Height'. For example, we could choose the 'Count' aggregation to represent the number of documents found in that bucket by the height of the 3D Bar.
+
+The result of such an example can be seen in Figure \ref{fig:onlybars3D}. When the mouse moves over a bar, info about that bar is displayed:
+\begin{itemize}
+	\item \textbf{key1}: shows the first bucket id previously defined in aggregations menu
+	\item \textbf{key2}: shows the second bucket id previously defined in aggregations menu
+	\item \textbf{value}: shows the metric we configured in aggregations menu
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/onlybars3D}
+  \caption{The 3 new plugin visualizations in Kibana menu}
+  \label{fig:onlybars3D}
+\end{figure}
+
+
+\subsection{3D Bubbles Chart}
+
+After selecting "3D Bubbles Chart" in the menu and selecting the index pattern to work with, we come across with the 3D bubbles aggregations menu, as seen in Figure \ref{fig:bubbles-aggregations-menu} borded with a red rectangle.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/bubbles-aggregations-menu}
+  \caption{3D Bars visualization aggregations menu}
+  \label{fig:bubbles-aggregations-menu}
+\end{figure}
+
+The 3D bubbles visualization needs exactly two buckets aggregations and two metric aggregation. The first buckets aggregation is for the values in X axis and the second buckets aggregation is for the Y axis. For example, we could choose to group our date in X axis by a Date Histogram, and then in Y axis by some Terms. We define these by clicking on the 'Bubbles' button and remembering to click the 'Add sub-buckets' button to define the Y axis.
+
+We define each bubble's height and size clicking the metric 'Bubbles Height and Size'. For example, we could choose the 'Average' metric on some field in first place to establish each bubble's height and then the 'Count' metric to establish each bubble's size.
+
+The result of such an example can be seen in Figure \ref{fig:onlybubbles3D}. When the mouse moves over a bubble, info about that bubble is displayed:
+\begin{itemize}
+	\item \textbf{key1}: shows the first bucket id previously defined in aggregations menu, represented in X axis
+	\item \textbf{key2}: shows the second bucket id previously defined in aggregations menu, represented in Y axis
+	\item \textbf{value}: shows the first metric we configured in aggregations menu, represented bubble's height
+	\item \textbf{value2}: shows the metric we configured in aggregations menu, represented in bubble's size
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/onlybubbles3D}
+  \caption{The 3 new plugin visualizations in Kibana menu}
+  \label{fig:onlybubbles3D}
+\end{figure}
+
+
+\subsection{Interacting with the 3D charts}
+
+In this section we will explain what charts can do once built and how the user can interact with the 3D scene. 
+
+In first place, scene can be zoomed in or zoomed out using the mouse wheel. It can also be dragged used the secondary mouse button and rotated using the principal mouse button and moving the mouse.
+
+In second place, in each of the charts, when mousing over a slice, bar or bubble, the object it's visually highlighted. Additionally, when clicking on a particular object, the corresponding filters automatically apply filtering for the buckets defined. In this way, we have only one filter applied when clicking on a slice in the pie chart, and two filters applied when clicking on a bar in the bars chart or a bubble in the bubbles chart. The filter applied automatically know if they should apply a time filter, as if the user manually defined it in the right top corner, or just apply a normal field filter.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
