@@ -384,19 +384,123 @@ TODO: mencionar soluciones parecidas a la mia, con otras tecnologías o que hay p
 
 \section{HTML5}
 
+HTML5 is a markup language used for structuring and presenting content on the World Wide Web. It was finalized, and published, on 28 October 2014 by the World Wide Web Consortium (W3C) This is the fifth revision of the HTML standard since the inception of the World Wide Web. The previous version, HTML 4, was standardized in 1997.
+
+Its core aims are to improve the language with support for the latest multimedia while keeping it easily readable by humans and consistently understood by computers and devices (web browsers, parsers, etc.). HTML5 is intended to subsume not only HTML 4, but also XHTML 1 and DOM Level 2 HTML.
+
+In particular, HTML5 adds many new syntactic features. These include the new video, audio and canvas elements, as well as the integration of scalable vector graphics (SVG) content (replacing generic object tags) and MathML for mathematical formulas. These features are designed to make it easy to include and handle multimedia and graphical content on the web without having to resort to proprietary plugins and APIs. Other new page structure elements, such as main, section, article, header, footer, aside, nav and figure, are designed to enrich the semantic content of documents. New attributes have been introduced, some elements and attributes have been removed and some elements, such as a, cite and menu> have been changed, redefined or standardized. The APIs and Document Object Model (DOM) are no longer afterthoughts, but are fundamental parts of the HTML5 specification.HTML5 also defines in some detail the required processing for invalid documents so that syntax errors will be treated uniformly by all conforming browsers and other user agents.
+
 \section{Javascript} 
 
-\section{Kibana}  
+JavaScript is a high-level, dynamic, untyped, and interpreted programming language.It has been standardized in the ECMAScript language specification. Alongside HTML and CSS, it is one of the three essential technologies of World Wide Web content production; the majority of websites employ it and it is supported by all modern Web browsers without plug-ins.JavaScript is prototype-based with first-class functions, making it a multi-paradigm language, supporting object-oriented,imperative, and functional programming styles.It has an API for working with text, arrays, dates and regular expressions, but does not include any I/O, such as networking, storage, or graphics facilities, relying for these upon the host environment in which it is embedded.
 
-TODO: Pegar las dos imágenes de Discover, visualize y el dashboard de bitergia. Explicar filtros, datos en la pestaña discover, las visualizaciones y el funcionamiento del dashboard.
+Despite some naming, syntactic, and standard library similarities, JavaScript and Java are otherwise unrelated and have very different semantics. The syntax of JavaScript is actually derived from C, while the semantics and design are influenced by the Self and Scheme programming languages.
+
+JavaScript is also used in environments that are not Web-based, such as PDF documents, site-specific browsers, and desktop widgets. Newer and faster JavaScript virtual machines (VMs) and platforms built upon them have also increased the popularity of JavaScript for server-side Web applications. On the client side, JavaScript has been traditionally implemented as an interpreted language, but more recent browsers perform just-in-time compilation. It is also used in game development, the creation of desktop and mobile applications, and server-side network programming with runtime environments such as Node.js.
+
+These are Javascript main features:
+
+\begin{itemize}  
+\item \underline{Imperative and structured}: 
+JavaScript supports much of the structured programming syntax from C (e.g., if statements, while loops, switch statements, do while loops, etc.). One partial exception is scoping: JavaScript originally had only function scoping with var. ECMAScript 2015 adds a let keyword for block scoping, meaning JavaScript now has both function and block scoping. Like C, JavaScript makes a distinction between expressions and statements. One syntactic difference from C is automatic semicolon insertion, which allows the semicolons that would normally terminate statements to be omitted.
+\item \underline{Dynamic}:
+As with most scripting languages, JavaScript is dynamically typed; a type is associated with each value, rather than just with each expression. For example, a variable that is at one time bound to a number may later be re-bound to a string. JavaScript supports various ways to test the type of an object, including duck typing.
+JavaScript includes an eval function that can execute statements provided as strings at run-time.
+\item \underline{Prototype-based (Object-oriented)}:
+JavaScript is almost entirely object-based. In JavaScript, an object is an associative array, augmented with a prototype (see below); each string key provides the name for an object property, and there are two syntactical ways to specify such a name: dot notation (obj.x = 10) and bracket notation (obj['x'] = 10). A property may be added, rebound, or deleted at run-time. Most properties of an object (and any property that belongs to an object's prototype inheritance chain) can be enumerated using a for...in loop.
+
+JavaScript has a small number of built-in objects, including Function and Date.
+\item \underline{Functional}:
+A function is first-class; a function is considered to be an object. As such, a function may have properties and methods, such as .call() and .bind().A nested function is a function defined within another function. It is created each time the outer function is invoked. In addition, each nested function forms a lexical closure: The lexical scope of the outer function (including any constant, local variable, or argument value) becomes part of the internal state of each inner function object, even after execution of the outer function concludes.JavaScript also supports anonymous functions.
+\end{itemize}
 
 \section{ElasticSearch}
 
-\section{ThreeDC.js}
+Elasticsearch is a distributed, scalable, real-time search and analytics engine. It makes it possible to search, analyze, and explore data at a speed and at a scale never before possible. It is used for full-text search, structured search, analytics, and all three in combination.
+
+Elasticsearch is an open-source search engine built on top of Apache Lucene?, a full-text search-engine library. Lucene is arguably the most advanced, high-performance, and fully featured search engine library in existence today?both open source and proprietary. Elasticsearch is written in Java and uses Lucene internally for all of its indexing and searching, but it aims to make full-text search easy by hiding the complexities of Lucene behind a simple, coherent, RESTful API.
+
+\subsection{Key concepts}
+
+Document
+
+A document is a basic unit of information that can be indexed. This document is expressed in JSON. Within an index, as many documents as it's wanted may be stored. Although a document physically resides in an index, a document actually must be assigned to a type inside an index.
+
+Index
+
+An index is a collection of documents that have somewhat similar characteristics. An index is identified by a name (that must be all lowercase) and this name is used to refer to the index when performing indexing, search, update, and delete operations against the documents in it.
+
+Type
+
+Within an index, one or more types can be defined. A type is a logical category/partition of the index whose semantics is completely up to the user. In general, a type is defined for documents that have a set of common fields.
+
+Node
+
+A node is a single server that is part of the cluster, stores the data, and participates in the cluster?s indexing and search capabilities. Just like a cluster, a node is identified by a name which by default is a random Universally Unique IDentifier (UUID) that is assigned to the node at startup. Any node name can be defined if the default is not wanted. This name is important for administration purposes where it is needed to identify which servers in the network correspond to which nodes in the Elasticsearch cluster.
+
+Cluster
+
+A cluster is a collection of one or more nodes (servers) that together holds the entire data and provides federated indexing and search capabilities across all nodes. A cluster is identified by a unique name which by default is "elasticsearch". This name is important because a node can only be part of a cluster if the node is set up to join the cluster by its name. 
+
+\subsection{Data interaction}
+
+Elasticsearch provides a rich, flexible, query language called the query DSL, which allows us to build much more complicated, robust queries. The domain-specific language (DSL) is specified using a JSON request body. The queries and all interaction with elasticsearch has the next aspect:
+
+\begin{lstlisting}
+GET /megacorp/employee/_search
+{"query" : {"match" : {"last_name" : "Smith"}}}
+\end{lstlisting}
+
+Through these DSL queries any database operation can be performed. Of course, elasticSearch has APIs for the most known languages, so it is possible to make queries from other programming languages.
+
+In this project, an elasticsearch server has been set up and all elasticsearch queries have been made indirectly through Kibana. This means that, by properly using Kibana functions and methods, it is possible to avoid manually having to make queries. 
+
+\section{Kibana}
+
+Kibana is an open source analytics and visualization platform for Elasticsearch. It provides visualization capabilities on top of the content indexed on an Elasticsearch cluster. Kibana is used to search, view, and interact with data stored in Elasticsearch indices. Advanced data analysis and visualization can be easily performed in a variety of charts, tables and map. Kibana makes it easy to understand large volumes of data.
+
+Next, we will show basic Kibana functionality and its possibilities, as well as a basic set up.
+
+
+
+TODO: Pegar las dos imágenes de Discover, visualize y el dashboard de bitergia. Explicar filtros, datos en la pestaña discover, las visualizaciones y el funcionamiento del dashboard.
+
+\section{AngularJS}
+
+\section{webGL}
+
+WebGL (Web Graphics Library) is a cross-platform, royalty-free web standard for a low-level 3D graphics JavaScript API for rendering interactive 3D computer graphics and 2D graphics within any compatible web browser without the use of plugins. WebGL is integrated completely into all the web standards of the browser allowing GPU accelerated usage of physics and image processing and effects as part of the web page canvas. WebGL elements can be mixed with other HTML elements and composited with other parts of the page or page background.WebGL programs consist of control code written in JavaScript and shader code that is executed on a computer's Graphics Processing Unit (GPU). WebGL is designed and maintained by the non-profit Khronos Group.
+
+WebGL is based on OpenGL ES 2.0 and provides an API for 3D graphics.It uses the HTML5 canvas element and the access is made using Document Object Model interfaces. Automatic memory management is provided as part of the JavaScript language.
+
+The WebGL API may be too tedious to use directly without some utility libraries, which for example set up typical view transformation shaders (e.g. for view frustum). Loading scene graphs and 3D objects in the popular industry formats is also not directly provided for. JavaScript libraries have been built (or sometimes ported to WebGL) to provide the additional functionality.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/webglexample}
+  \caption{A webgl example - water simulation, a Chrome Experiment}
+  \label{fig:webglexample}
+\end{figure}
+
+As WebGL is an advanced technology designed to work directly with the Graphics Processing Unit, it is hard to code compared to other web standards which are more accesibles. This is the reason why many JavaScript libraries have appeared, to solve this problem. The most famous webGL library in terms of users is Three.js. It is light and not so complex compared with the original webGL specification. This is also the library that has been used in this project, and we will explain this library in the next section.
 
 \section{Three.js} 
 
-\section{AngularJS}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/threeexample}
+  \caption{A three.js example - Helloracer game}
+  \label{fig:threeexample}
+\end{figure}
+
+\section{ThreeDC.js}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/threedcexample}
+  \caption{3D charts built with threeDC}
+  \label{fig:threedcexample}
+\end{figure}
 
 \section{Context}
 
@@ -1005,6 +1109,15 @@ ver https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizat
 
 \section{Architecture}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/3dcharts-architecture}
+  \caption{The 3 new plugin visualizations in Kibana menu}
+  \label{fig:3dcharts-architecture}
+\end{figure}
+
+
+
 \section{User Guide}
 
 In this section every functionality of the plugin will be explained. A detailed guide on how to produce each type of visualization will be given, as welll as every possibility every visualization type has.
@@ -1545,6 +1658,18 @@ https://www.timroes.de/2015/12/06/writing-kibana-4-plugins-visualizations-using-
 https://www.timroes.de/2016/02/17/writing-kibana-4-plugins-field-formatters/
 https://www.timroes.de/2016/02/21/writing-kibana-plugins-custom-applications/
 
+webGl
+
+https://en.wikipedia.org/wiki/WebGL
+https://www.chromeexperiments.com/experiment/webgl-water-simulation
+
+three
+
+https://github.com/mrdoob/three.js
+http://helloracer.com/
+
+kibana and elasticsearch:
+https://www.elastic.co
 
 % Las siguientes dos instrucciones es todo lo que necesitas
 % para incluir las citas en la memoria
