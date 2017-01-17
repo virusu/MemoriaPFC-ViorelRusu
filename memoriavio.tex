@@ -336,9 +336,8 @@ In order to sum it up, we can express our solution with the following words: it 
 
 \begin{enumerate}
 
-\item- Store open source projects data in the elasticsearch database engine.
 \item- Use Kibana integrated tools to retrieve the data we need from elasticsearch.
-\item- Build this new 3D visualizations: pie chart, 
+\item- Build this new 3D visualizations: pie chart, bars chart, bubbles chart
 \item- Integrate threedc.js 3D scenes in Kibana visualization
 \item- Integrate threedc.js visualization in Kibana dashboard
 \item- Add custom events to threedc charts in order to filter data on click
@@ -422,25 +421,28 @@ Elasticsearch is an open-source search engine built on top of Apache Lucene?, a 
 
 \subsection{Key concepts}
 
-Document
+\begin{itemize}
+\item \underline{Document}
 
 A document is a basic unit of information that can be indexed. This document is expressed in JSON. Within an index, as many documents as it's wanted may be stored. Although a document physically resides in an index, a document actually must be assigned to a type inside an index.
 
-Index
+\item \underline{Index}
 
 An index is a collection of documents that have somewhat similar characteristics. An index is identified by a name (that must be all lowercase) and this name is used to refer to the index when performing indexing, search, update, and delete operations against the documents in it.
 
-Type
+\item \underline{Type}
 
 Within an index, one or more types can be defined. A type is a logical category/partition of the index whose semantics is completely up to the user. In general, a type is defined for documents that have a set of common fields.
 
-Node
+\item \underline{Node}
 
 A node is a single server that is part of the cluster, stores the data, and participates in the cluster?s indexing and search capabilities. Just like a cluster, a node is identified by a name which by default is a random Universally Unique IDentifier (UUID) that is assigned to the node at startup. Any node name can be defined if the default is not wanted. This name is important for administration purposes where it is needed to identify which servers in the network correspond to which nodes in the Elasticsearch cluster.
 
-Cluster
+\item \underline{Cluster}
 
 A cluster is a collection of one or more nodes (servers) that together holds the entire data and provides federated indexing and search capabilities across all nodes. A cluster is identified by a unique name which by default is "elasticsearch". This name is important because a node can only be part of a cluster if the node is set up to join the cluster by its name. 
+
+\end{itemize}
 
 \subsection{Data interaction}
 
@@ -553,31 +555,10 @@ In this project, following Sprints have been defined and developed:
 \begin{enumerate}
 
 \item \textbf{Sprint 0}: Investigation and technologies exploration
-\item \textbf{Sprint 1}: Separate server showing up elasticSearch data and a threeDC chart
-\item \textbf{Sprint 2}: Hello World plugin
-\item \textbf{Sprint 3}: Simple elasticSearch query and visualization in Kibana custom plugin
-\item \textbf{Sprint 4}: ThreeDC and aux modules integration in Kibana plugin (1. three cube in Kibana. 2. threedc in kibana)
-\item \textbf{Sprint 5}: 3D Pie Chart
-\item \textbf{Sprint 6}: Data filtering
-\item \textbf{Sprint 7}: 3D Bars Chart
-\item \textbf{Sprint 8}: 3D Bubbles Chart
-
-TODO
-
-Sprint 1: First steps with Kibana plugins, elasticSearch and threeDC chart
-1.1 Separate server showing up elasticSearch data and a threeDC chart
-1.2 Simple elasticSearch query and visualization in Kibana custom plugin
-
-Sprint 2: First visualization plugin
-2.1 Hello World Plugin
-2.2 Three integration
-2.3 ThreeDC integration - First Pie
-
-Sprint 3: Visualize elasticSearch real data
-
-Sprint X: Kibana integration: comment filters
-
-TODO: mencionar mejoras en la biblioteca threeDC según voy desarrollando estos sprints. Por ejemplo el rompecabezas que tuve con varias vis en el dashboard
+\item \textbf{Sprint 1}: First systems using elasticsearch, threeDC charts and Kibana custom plugins
+\item \textbf{Sprint 2}: 3D Basic Pie Visualization
+\item \textbf{Sprint 3}: Data treatment
+\item \textbf{Sprint 4}: Kibana Integration
 
 \end{enumerate}
 
@@ -677,9 +658,13 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 Once Kibana runs correctly, the first time we access it it will ask us to configure an index pattern. We will do this and at this point everything is set up to start focusing on our plugin development.
 
 
-\section{Sprint 1} Separate server showing up elasticSearch data and threeDC graphics
+\section{Sprint 1} First systems with Kibana custom plugins, elasticSearch and threeDC charts
 
-This is the only Sprint where we focus on anything separately from Kibana. What we aim here is to have a simple server having two different separate functionalities. On the one side, we want this server to interact with elasticSearch on its own, without Kibana. We take advantage of this server and take into action the angularJS framework. On the other hand, we want it to show threeDC charts, loading all the libraries needed. Finally, a client through a browser will view a single page with two divs, one containing some sort of elasticSearch data and the other plotting some sort of threeDC charts. This will set the basis for a much more complex server like Kibana, with much more complex queries to elasticSearch and more issues with the threeeDC library.
+The main goal in this sprint is to build the first working systems with the main technologies involved in this project: Kibana, elasticSearch and threeDC. A separate and very basic server interacting with elasticsearch will be built in first place. We take advantage of having this server serving a page to also show a basic threeDC chart, killing two birds with one stone.  In second place, Kibana will enter into action and it will act as the server, interacting with elasticsearch to show up some basic data by itself.
+
+\subsection{Separate server showing up ES data and a threeDC chart}
+
+This is the only section where we focus on anything separately from Kibana. What we aim here is to have a simple server having two different separate functionalities. On the one side, we want this server to interact with elasticSearch on its own, without Kibana. We take advantage of this server and take into action the angularJS framework. On the other hand, we want it to show threeDC charts, loading all the libraries needed. Finally, a client through a browser will view a single page with two divs, one containing some sort of elasticSearch data and the other plotting some sort of threeDC charts. This will set the basis for a much more complex server like Kibana, with much more complex queries to elasticSearch and more issues with the threeeDC library.
 
 First of all, we need a server. We decided to use the python built-in HTTP server for its simplicity. Just by running the server in a certain folder, it automatically serves the files in that folder through default port 8000. The command used for this couldn't be simpler:
 
@@ -705,10 +690,7 @@ So whatever is put in an index.html file, the server serves it. We start creatin
 
 Now we will focus on the two functionalities, on separate.
 
-\subsection{ElasticSearch interaction}
-\label{subsec:es-interaction}
-
-We need a way to interact with elasticSearch. Elastic team provides different APIs for this, one for each of the main programming languages. As it's expected, there is one for Javascript. We will use the Angular Build API. So we do the following in our case.
+In the first place, let's focus on elasticSearch interaction. We need a way to interact with elasticSearch. Elastic team provides different APIs for this, one for each of the main programming languages. As it's expected, there is one for Javascript. We will use the Angular Build API. So we do the following in our case.
 
 Inside the angular module app, we create a service named client which we can use directly to make queries from the angular controller.
 
@@ -740,11 +722,7 @@ Now, in the controller, we call a method of this API to retrieve some informatio
 
 Then, the result is attached to the scope so it is easy to print this result directly from the html through angular. The result can be seen in the first section of the previous figure \ref{fig:index-ES-threeDC}. The complete code in detail can also be found in Appendix \ref{sec:script.js}.
 
-
-\subsection{threeDC graph}
-\label{subsec:threedc-graph}
-
-Let's build our first real threeDC graph. In the next paragraphs, only main scene scheleton will be described. Details and secondary commentaries will be left for the reader to investigate in Appendix \ref{sec:script.js}.
+In the second place, we will focus on building our first real threeDC graph. In the next paragraphs, only main scene scheleton will be described. Details and secondary commentaries will be left for the reader to investigate in Appendix \ref{sec:script.js}.
 
 First, we create all the three.js objects needed for a scene to correctly be visualized: camera, renderers and light:
 
@@ -789,72 +767,11 @@ function animate()
 }
 \end{lstlisting}
 
-
 With these basic structure (threeDC, elasticSearch and angularJS) we can start getting at work with Kibana, which undoubtely is the titan  of this paper.
 
+\subsection{Simple elasticSearch query and visualization in Kibana custom plugin}
 
-\section{Sprint 2: Hello World plugin}
-
-In this section, a very basic plugin in Kibana will be built from scratch. The final result can be seen in figure
-
-In Kibana, developed plugins go into Kibana/plugins/ directory. The first thing to know about Kibana plugins is that every plugin is actually a npm module. Like every npm module, two basic files need to be created:
-
-\begin{itemize}
-
-\item package.json. We specify our plugin name here.
-
-\begin{lstlisting}
-{
-  "name": "sprint2_plugin",
-  "version": "5.0.0"
-}
-\end{lstlisting}
-
-\item index.js. Here, our module has to instantiate a new instance of Kibana plugin, creating a new plugin of type 'visualization' (there are other type of plugins like completely separated apps) and registering it in the following way:
-
-\begin{lstlisting}
-export default function (kibana) {
-	
-	return new kibana.Plugin({
-		uiExports: {
-			visTypes: [
-				'plugins/sprint2_plugin/sprint2'
-      		]
-    	}
-  	});
-};
-\end{lstlisting}
-
-\end{itemize}
-
-In order to define a basic functionality showing up "Hello World" inside the visualization plugin, we have to define the following two files also in directory public:
-
-\begin{itemize}
-
-\item sprint2.js. In this file, we define our visualization setting parameters like a title, a description or an icon to appear in visualization list. We also define here the controller for our div in Kibana, which we will describe in the next paragraph. Full code can be seen in appendix xxx(sprint2.js)
-
-\item sprint2.html. In this file, a basic div is defined. It is defined as a controller, so a basic angularJS structure is used to attach a parameter named 'name' and show it in Kibana through the template. 
-\end{itemize}
-
-In figure \ref{fig:hello-world-menu-vis} our first visualization plugin can be seen in the list, together with default Kibana visualization plugins. Figure \ref{fig:hello-world-plugin} shows the final plugin result. With this basic plugin, we have the skeleton to build everything we want.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=15cm, keepaspectratio]{img/hello-world-menu-vis}
-  \caption{Hello World plugin in visualizations plugin list}
-  \label{fig:hello-world-menu-vis}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=15cm, keepaspectratio]{img/hello-world-plugin}
-  \caption{Hello World plugin result}
-  \label{fig:hello-world-plugin}
-\end{figure}
-
-\section{Sprint 3: Simple elasticSearch query and visualization in Kibana custom application}
-
-In this sprint a new app will be created inside Kibana and elasticSearch will be queried from this app. We will make this query the simplest we can, for example querying the total number of documents in our index.
+In this section a new app will be created inside Kibana and elasticSearch will be queried from this app. We will make this query the simplest we can, for example querying the total number of documents in our index.
 
 This will be the basic structure of our application:
 
@@ -950,7 +867,68 @@ The final result can be seen in Fig \ref{fig:elasticsearch-app-ncommits}.
   \label{fig:elasticsearch-app-ncommits}
 \end{figure}
 
-\section{Sprint 4: ThreeDC and aux modules integration in Kibana plugin (1. three cube in Kibana. 2. threedc in kibana)}
+
+
+\section{Sprint 2: 3D Basic Pie Visualization}
+
+\subsection{Hello World visualization plugin}
+
+In this section, a very basic plugin in Kibana will be built from scratch. The final result can be seen in figure XXX
+
+In Kibana, developed plugins go into Kibana/plugins/ directory. The first thing to know about Kibana plugins is that every plugin is actually a npm module. Like every npm module, two basic files need to be created:
+
+\begin{itemize}
+
+\item package.json. We specify our plugin name here.
+
+\begin{lstlisting}
+{
+  "name": "sprint2_plugin",
+  "version": "5.0.0"
+}
+\end{lstlisting}
+
+\item index.js. Here, our module has to instantiate a new instance of Kibana plugin, creating a new plugin of type 'visualization' (there are other type of plugins like completely separated apps) and registering it in the following way:
+
+\begin{lstlisting}
+export default function (kibana) {
+	
+	return new kibana.Plugin({
+		uiExports: {
+			visTypes: [
+				'plugins/sprint2_plugin/sprint2'
+      		]
+    	}
+  	});
+};
+\end{lstlisting}
+
+\end{itemize}
+
+In order to define a basic functionality showing up "Hello World" inside the visualization plugin, we have to define the following two files also in directory public:
+
+\begin{itemize}
+
+\item sprint2.js. In this file, we define our visualization setting parameters like a title, a description or an icon to appear in visualization list. We also define here the controller for our div in Kibana, which we will describe in the next paragraph. Full code can be seen in appendix xxx(sprint2.js)
+
+\item sprint2.html. In this file, a basic div is defined. It is defined as a controller, so a basic angularJS structure is used to attach a parameter named 'name' and show it in Kibana through the template. 
+\end{itemize}
+
+In figure \ref{fig:hello-world-menu-vis} our first visualization plugin can be seen in the list, together with default Kibana visualization plugins. Figure \ref{fig:hello-world-plugin} shows the final plugin result. With this basic plugin, we have the skeleton to build everything we want.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/hello-world-menu-vis}
+  \caption{Hello World plugin in visualizations plugin list}
+  \label{fig:hello-world-menu-vis}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/hello-world-plugin}
+  \caption{Hello World plugin result}
+  \label{fig:hello-world-plugin}
+\end{figure}
 
 Once plugin creation and interaction with elasticsearch from Kibana is clear, the next logical step is to incorporate our visual libraries in a plugin in Kibana. In this Sprint a basic threeDC scene will be created and correctly integrated in a visualization plugin in Kibana. No elasticSearch data will be used yet.
 
@@ -961,10 +939,12 @@ In order to progressively move toward the objective, a basic three.js scene will
 
 In order to insert a basic three.js scene in Kibana, the following steps were followed:
 
-1. Add three.js library through node package manager.
+\begin{enumerate}
+
+\item Add three.js library through node package manager.
 To add three.js library is easy because it is already packed online (https://www.npmjs.com/package/three) and ready to install via npm simply with the 'npm install three' command.
 
-2. From the main plugin file, the new library can easily be imported:
+\item From the main plugin file, the new library can easily be imported:
 
 \begin{lstlisting}
 THREE = require("three");
@@ -972,61 +952,40 @@ THREE = require("three");
 
 Then, it can be used across this file wherever we consider
 
-3. A controller has been created manipulating a basic three.js rotating cube:
+\item A controller has been created manipulating a basic three.js rotating cube:
 
 \begin{lstlisting}
 module.controller('3DCubeController', function($scope, $element){
 
-
-    var camera, scene, renderer;
-    var geometry, material, mesh;
-
     init();
     animate();
 
-
     function init() {
-
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
         camera.position.z = 1000;
-
         scene = new THREE.Scene();
-
         geometry = new THREE.BoxGeometry(200, 200, 200);
         material = new THREE.MeshBasicMaterial({
             color: 0xff0000,
-            wireframe: true
-        });
-
+            wireframe: true});
         mesh = new THREE.Mesh(geometry, material);
-
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
-		
-		
         var idchart = $element.children().find(".3Dcubechart");
-        
    		container = idchart[0];
-        container.appendChild(renderer.domElement);
-    }
+        container.appendChild(renderer.domElement);}
 
     function animate() {
-
         requestAnimationFrame(animate);
-
         mesh.rotation.x += 0.01;
         mesh.rotation.y += 0.02;
+        renderer.render(scene, camera);}});
 
-        renderer.render(scene, camera);
-
-    }
-    
-	});
 \end{lstlisting}
 
 The key in correctly inserting the scene in Kibana is in using the \$element service\footnote{\url{https://docs.angularjs.org/api/ng/function/angular.element}}, as it can be seen in the controller declaration in the code above. This angularJS service allows us to access jQuery functions from the controller. So jQuery functions children() and find() are used in order to find the correct div to insert in. Once found, all the scene is inserted here by using the appendChild HTML DOM manipulation function and the DOM element containing the scene returned from the renderer itself.
 
-4. And in the main html file a canvas is defined to be controlled by the controller, and to contain a div to be found by jQuery service \$element.
+\item And in the main html file a canvas is defined to be controlled by the controller, and to contain a div to be found by jQuery service \$element.
 
 
 \begin{lstlisting}
@@ -1046,9 +1005,17 @@ The final result can be seen in Figure \ref{fig:only-threejsprueba}
   \label{fig:only-threejsprueba}
 \end{figure}
 
+\end{enumerate}
 
 \subsection{ThreeDC.js scene integration}
 \label{subsec:threedcjsint}
+
+---------------------------------
+Modulos en Javascript
+Explicar sobre los módulos. 
+vr vis es un modulo AMD. Necesita estar wrapped en define(function(require) ...)
+ver https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizations/
+---------------------------
 
 This section may seem obvious, but it's very tricky. ThreeDC.js library, in order to work properly, needs a set of external libraries itself. These modules are extensions that allow different functionality to the threeDC scene, like adding mouse interactivity or providing threejs fonts or text operations. We won't get into detail at this point, as threeDC already uses all these modules and it's not something new to this project.
 
@@ -1071,30 +1038,122 @@ Another case is that in the auxiliary modules a new object is created. In these 
  Detector = require("plugins/3D_kibana_charts_vis/Detector");
 \end{lstlisting}
 
-Also, helvetiker bold font has to be imported and loaded as follows. It is necessary for threeDC to work properly.
+Also, helvetiker bold font has to be imported and loaded as follows. It is necessary for threeDC to work properly and correctly display text in the 3D scene.
 
 \begin{lstlisting}
   var typeface2 = require('plugins/3D_kibana_charts_vis/helvetiker_bold.typeface');
   THREE.typeface_js.loadFace(typeface2);
 \end{lstlisting}
 
-Once imported all these modules, threeDC scenes can be created. Basic scenes have been created and correctly tested, but won't be included here for briefty and because there there will be plenty of them in the following sprints.
+Once imported all these modules, any threeDC scene can be created and displayed. In our case, we want to build the first 3D Pie chart scene integrated in Kibana. Once the scene is initialized, it is easy to create a pie, following the scheme described in the previous section \ref{subsec:threejsint}. We only need to create a pieChart threeDC Object inside our controller, add some sample data to it and display it:
 
-\section{Sprint 5: 3D Pie Chart}
+\begin{lstlisting}
+pie = THREEDC.pieChart();
+pie.data(sampleData);
+\end{lstlisting}
 
+The visual result is very similar to what can be seen in Figure \ref{fig:onlypie3D}.
 
-Modulos en Javascript
+\section{Sprint 3: Working with data}
 
+So far we have a very basic 3D pie visualization. From this basic scheleton we can built all the advanced functionality we want the pie to have, and also build the other visualizations (bars chart and bubbles chart) using this same structure.
 
-Explicar sobre los módulos. 
+In this Sprint, we focus on data treatment. Sample data will no longer be used, but elasticSearch queries will enter into action instead and get that data. This data is properly transformed in javascript in order to follow the pie chart input format, and then plot or replot the pie.
 
-vr vis es un modulo AMD. Necesita estar wrapped en define(function(require) ...)
+This data treatment is done in similar ways in the three visualizations developed in this plugin: pie chart, bars chart and bubbles chart, with minor differences. The duplicated functionality won't be repeated here, but a generalization on how to retrieve and treat the data for the pie chart will be given, which will serve for all the visualization charts.
 
-ver https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizations/
+\subsection{Defining the schemas}
 
-\section{Sprint 6: Data filtering}
-\section{Sprint 7: 3D Bars Chart}
-\section{Sprint 8: 3D Bubbles Chart}
+After creating our first pie visualization with its visualization provider, a very important step is to define our schemas. Before writing any code, we should already know what kind of bucket and metrics aggregations it is needed for each chart type. Conceptually, the next schemas design has been made for the pie chart: it is needed exactly one bucket aggregation to define the slices and exactly one metric aggregation to define the slice size. With this in mind we define the schemas in the following way in our pie3D.js file:
+
+\begin{lstlisting}
+schemas: new Schemas([
+        {
+          group: 'metrics',
+          name: 'slice_size',
+          title: 'Slice Size',
+          min: 1,
+          max: 1,
+          aggFilter: ['count', 'avg', 'sum', 'min', 'max', 'cardinality', 'std_dev']},
+        {
+          group: 'buckets',
+          name: 'slices',
+          title: 'Slices',
+          min: 1,
+          max: 1,
+          aggFilter: '!geohash_grid'}])
+\end{lstlisting}
+
+Each Schemas object takes an array of objects in its constructor. Each object describes one aggregation that will be accepted for the pie visualization. Each aggregation object have the following keys:
+
+\begin{itemize}
+
+\item group - either "metrics" or "buckets". It defines which kind of aggregation we want to describe in this object.
+\item name - the id of this aggregation. This will be used later by our controller to reference this aggregation.
+\item title - the title shown to the user, when he adds the aggregation. Should describe how that aggregation will be visualized (e.g. in that case the bucket aggregation will create tags, the metrics aggregation will influence the tag size)
+\item min/max - the number of minimum and maximum aggregations of that type, a user can add. In our case we only allow 1 aggregation of each type, due to the way our visualization works.
+\item aggFilter - a filter on which aggregations should be allowed. It is an array of either aggregation types (see below), that are allowed in this place (as shown in our metrics aggregation) or an array of aggregation types forbidden (each must be prefixed with a bang). In the later case all other aggregations are allowed. If the array has only one element that can also be specified as a string (as shown in the bucket aggregation).
+\end{itemize}
+
+This schemas defined for the pie chart can be seen in actions in the pie aggregations menu, Figure \ref{fig:pie-aggregations-menu}.
+
+For the bars and bubbles chart similar schemas have been defined. The bars chart defines exactly two buckets, one for each axis, and one metric, for each bar height. The bubbles chart also define these two buckets for each dimension and a metric for the bubble height, but it defines an extra metric for the bubble's size. That makes two buckets and two metrics in total.
+
+\subsection{Data retrieval}
+
+Once our schemas are correctly defined, we can access data from the controller by accesing two variables inherited into our angular scope.One is the vis variable, which holds information about your visualization and the settings the user chose. The other variable is named esResponse and holds the Elasticsearch response for your visualization. Kibana will automatically query Elasticsearch with the aggregations set by the user and taking into account currently set queries and filters.
+
+To visualize our data we need to match the response data with the user configuration for our widget. To access the result of the aggregations we can look into \$scope.esResponse.aggregations. To find aggregations in that object we need their ids. To find the ids for a specific aggregation we can use several methods of \$scope.vis.aggs to find the id.
+
+\begin{lstlisting}
+      // Retrieve the id of the configured tags aggregation
+      var slicesAggId = $scope.vis.aggs.bySchemaName['slices'][0].id;
+      // Retrieve the metrics aggregation configured
+      var metricsAgg = $scope.vis.aggs.bySchemaName['slice_size'][0];
+      // Get the buckets of that aggregation
+      var buckets = resp.aggregations[slicesAggId].buckets;
+\end{lstlisting}
+
+The buckets variable is an array of buckets, and accesing the key field of each bucket we get the bucket name which we can use to display each slice name. In order to get the value of that bucket, we access it in the following way:
+
+\begin{lstlisting}
+var value = metricsAgg.getValue(bucket);
+\end{lstlisting}
+
+This value will be used to determine each slice's size in the pie chart.
+
+Similar reasoning can be made for the bars and the bubbles chart, with the following particularities:
+
+\begin{itemize}
+\item In order to get the second buckets aggregation id, we retrieve the second element of the \$scope.vis.aggs.bySchemaName['...'], like this:
+
+\begin{lstlisting}
+var barsyAggId = $scope.vis.aggs.bySchemaName['bars'][1].id;
+\end{lstlisting}
+
+A similar reasoning goes for retrieving the second metric aggregation. Then, we just have to apply the getValue method on each metrics aggregation.
+
+\item In order to get the buckets in the 'y' dimension, we access each bucket in the 'x' dimension and then retrieve its buckets, like this:
+
+\begin{lstlisting}
+var bucketsy = bucketx[barsyAggId].buckets;
+\end{lstlisting}
+
+\end{itemize}
+
+\subsection{Data treatment for threeDC}
+
+So far we have managed to make kibana query elasticsearch for all the data we need to plot the charts. But this is not all the work it is need to be done. Some tedious work is still to be performed. This work consists in taking the data from the Kibana buckets and metrics aggregations and adapt it to the threeDC format.
+
+TODO: explicar el formato de entrada de threeDC, explicar el proceso muy por encima
+
+\section{Sprint 4: Kibana integration}
+
+\subsection{Field filters}
+
+\subsection{Date filters}
+
+\subsection{Dashboard}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
