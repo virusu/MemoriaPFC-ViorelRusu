@@ -231,15 +231,15 @@ mi familia / mi abuelo / mi abuela}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Agradecimientos
 
-\chapter*{Agradecimientos}
+\chapter*{Acknowledgment}
 %\addcontentsline{toc}{chapter}{Agradecimientos} % si queremos que aparezca en el índice
-\markboth{AGRADECIMIENTOS}{AGRADECIMIENTOS} % encabezado 
+\markboth{Acknowledgment}{Acknowledgment} % encabezado 
 
-Aquí vienen los agradecimientos\ldots Aunque está bien acordarse de la pareja,
-no hay que olvidarse de dar las gracias a tu madre, que aunque a veces no lo 
-parezca disfrutará tanto de tus logros como tú\ldots Además, la pareja quizás
-no sea para siempre, pero tu madre sí.
+Many years have passed since I started my career. It has been a path in which joys and satisfaction have been mixed with moments of disappointment and failure. Looking backwards, I cannot say it was easy at all. But, at the same time I can say with all conviction that now I am stronger, I have become a better person. And it was worth it. And here I am, crossing the finish line. I wouldn't have been able to make this alone. I am very grateful to God in first place. I have to thank my mother for supporting me through all these years, for her care and unconditional love. Thanks to my family, for being there when I needed some encouragement. And thanks to my girlfriend, just for being there when I needed a shoulder to cry on. Last but not least, I am really thankful for my tutor, Jesús, for always being there when I needed him and for his comprehension and guidance through this project.
 
+I will end this section by mentioning an almost 2000 years old verse:
+
+"I can do all things through Christ who strengthens me." ~ Saul of Tarsus 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Resumen
 
@@ -247,19 +247,11 @@ no sea para siempre, pero tu madre sí.
 %\addcontentsline{toc}{chapter}{Resumen} % si queremos que aparezca en el índice
 \markboth{RESUMEN}{RESUMEN} % encabezado
 
-Aquí viene un resumen del proyecto. Ha de constar de tres o cuatro párrafos,
-donde se presente de manera clara y concisa de qué va el proyecto. Han
-de quedar respondidas las siguientes preguntas:
+Este proyecto tiene como objetivo integrar un sistema de visualización de datos en 3 dimensiones en un sistema complejo de visualización e interacción de datos. Como sistema complejo de visualización de datos se ha utilizado Kibana y el motor de bases de datos es ElasticSearch. El sistema de visualización de gráficos que se ha integrado es la biblioteca threeDC.js. El resultado de esta integración tiene forma de plugin fácilmente instalable en Kibana.
 
-\begin{itemize}
-  \item ¿De qué va este proyecto? ¿Cuál es su objetivo principal?
-  \item ¿Cómo se ha realizado? ¿Qué tecnologías están involucradas?
-  \item ¿En qué contexto se ha realizado el proyecto? ¿Es un proyecto
-dentro de un marco general?
-\end{itemize}
+Este plugin, una vez instalado, permite añadir 3 tipos de visualizaciones nuevas a las que Kibana ya tenía. De esta manera, podemos integrar en un único cuadro de mando gráficos tanto en dos dimensiones con las visualizaciones predefinidas por Kibana como en tres, con las visualizaciones desarrolladas en este proyecto.
 
-Lo mejor es escribir el resumen al final.
-
+Para lograr este objetivo se ha programado casi exclusivamente en Javascript, con algo de HTML5. Como tecnologías Javascript a destacar hay que mencionar AngularJS, todo el código Javascript está estructurado así y se han utilizado las funcionalidades que ofrece AngularJS. Se ha utilizado indirectamente un motor gráfico potente, webGL, para representar escenas tridimensionales complejas. Esto se ha hecho a través de la librería Javascript three.js y su extensión threeDC.js.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Resumen en inglés
 
@@ -267,10 +259,12 @@ Lo mejor es escribir el resumen al final.
 %\addcontentsline{toc}{chapter}{Summary} % si queremos que aparezca en el índice
 \markboth{SUMMARY}{SUMMARY} % encabezado
 
-Here comes a translation of the ``Resumen'' into English. Please, double check
-it for correct grammar and spelling. As it is the translation of the ``Resumen'',
-which is supposed to be written at the end, this as well should be filled out
-just before submitting.
+This project aims to integrate a 3D data visualization system into a complex data visualization and interaction system. As a complex data visualization system Kibana has been used and the database engine is ElasticSearch. The graphics display system that has been integrated is threeDC.js library. The result of this integration is in the form of an easily installable plugin in Kibana.
+
+This plugin, once installed, allows to add 3 types of new visualizations to the already existing visualizations in Kibana. In this way, we can integrate in a single dashboard both 2D charts and 3D charts, with the visualizations developed in this project.
+
+To achieve this goal Javascript programming language has been almost exclusively used, with some HTML5. As Javascript technologies to highlight we must mention AngularJS, all Javascript code is structured using this paradigma and all the features offered by AngularJS have been used. A powerful graphics engine, webGL, has been indirectly used to represent complex three-dimensional scenes through three.js javascript library and threeDC.js extension.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -337,38 +331,19 @@ In order to sum it up, we can express our solution with the following words: it 
 \begin{enumerate}
 
 \item- Use Kibana integrated tools to retrieve the data we need from elasticsearch.
-\item- Build this new 3D visualizations: pie chart, bars chart, bubbles chart
+\item- Build some new 3D visualizations
 \item- Integrate threedc.js 3D scenes in Kibana visualization
 \item- Integrate threedc.js visualization in Kibana dashboard
 \item- Add custom events to threedc charts in order to filter data on click
 \item- Help to improve threedc.js library by reporting bugs, adding an interface for custom data and for custom events.
 
-
 \end{enumerate}
-
-\section{Structure of this paper}
-\label{sec:structure}
-
-En esta sección se debería introducir la esctura de la memoria. Así:
-
-\begin{itemize}
-  \item En el primer capítulo se hace una intro al proyecto.
-  
-  \item En el capítulo~\ref{chap:objetivos} se muestran los objetivos del proyecto.
-  
-  \item A continuación se presenta el estado del arte.
-  
-  \item \ldots
-\end{itemize}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ESTADO DEL ARTE %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-TODO: mencionar soluciones parecidas a la mia, con otras tecnologías o que hay por ahi
 
 
 
@@ -378,7 +353,7 @@ TODO: mencionar soluciones parecidas a la mia, con otras tecnologías o que hay p
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
-\chapter{Used technologies and Context}
+\chapter{Context and Used technologies}
 \label{sec:technologies}
 
 \section{HTML5}
@@ -467,7 +442,7 @@ In figure \ref{fig:kibana_tabs} Kibana pages are shown. These three are used in 
 
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{img/kibana_tabs}
+  \includegraphics[height=12cm, keepaspectratio]{img/kibana_tabs}
   \caption{Kibana pages}
   \label{fig:kibana_tabs}
 \end{figure}
@@ -476,29 +451,31 @@ In figure \ref{fig:kibana_tabs} Kibana pages are shown. These three are used in 
 \item Discover. Data can be interactively explored in this page. We have access to every document in every index that matches the selected index pattern. We can submit search queries, filter the search results, and view document data. We can also see the number of documents that match the search query and get field value statistics. If a time field is configured for the selected index pattern, the distribution of documents over time is displayed in a histogram at the top of the page.
 
 \item Visualize. Visualize enables us to create visualizations of the data in our Elasticsearch indices. We can then build dashboards that display related visualizations. Kibana visualizations are based on Elasticsearch queries. By using a series of Elasticsearch aggregations to extract and process the data, we can create charts that show the trends, spikes, and dips we need to know about.
-We can create visualizations from a search saved from Discover or start with a new search query. There is a limited types of visualizations available in Kibana: Area chart, Data table, Line chart, Markdown widget, Metric, Pie chart, Tag cloud, Tile map, Timeseries, Vertical bar chart There are also independent developers that have created some more visualizations. The elastic team maintains an updated list of these plugins\footnote{\url{https://www.elastic.co/guide/en/kibana/current/known-plugins.html}
+We can create visualizations from a search saved from Discover or start with a new search query. There is a limited types of visualizations available in Kibana: Area chart, Data table, Line chart, Markdown widget, Metric, Pie chart, Tag cloud, Tile map, Timeseries, Vertical bar chart There are also independent developers that have created some more visualizations. The elastic team maintains an updated list of these plugins\footnote{\url{https://www.elastic.co/guide/en/kibana/current/known-plugins.html}}
 
-\item Dashboard. Undoubtely, the most powerful feature of Kibana. It allows the user to display a collection of saved visualizations. These visualizations can be arranged and resized as needed. Dashboards can also be saved so they can be reloaded and shared. A quite complete dashboard can be seen in figure \ref{fig:complete-dashboard-kibana}.
+\item Dashboard. Undoubtely, the most powerful feature of Kibana. It allows the user to display a collection of saved visualizations. These visualizations can be arranged and resized as needed. Dashboards can also be saved so they can be reloaded and shared. A quite complete dashboard can be seen in figure \ref{fig:complete_dashboard_kibana}.
 \end{itemize}
 
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{img/complete-dashboard-kibana}
+  \includegraphics[width=15cm, keepaspectratio]{img/complete_dashboard_kibana}
   \caption{Example dashboard in Kibana}
-  \label{fig:complete-dashboard-kibana}
+  \label{fig:complete_dashboard_kibana}
 \end{figure}
 
 Some other key features of Kibana are the filters. Filters can easily be added to the data using the always-displayed top right time filter or by clicking some data in the Discover page, or even by clicking different parts of some visualizations. In dashboards, added filters on the go make all visualizations to refresh in order to display the new filtered data.
 
 \section{AngularJS}
 
-AngularJS is a structural framework for dynamic web apps. It lets us use HTML as a template language and lets us extend HTML?s syntax to clearly express our application?s components. Angular?s data binding and dependency injection eliminate much of the code we would otherwise have to write. And it all happens within the browser, making it an ideal partner with any server technology. AngularJS teaches the browser new syntax through a construct we call directives. Examples include:
+AngularJS is a structural framework for dynamic web apps. It lets us use HTML as a template language and lets us extend HTML syntax to clearly express our application components. AngularJS data binding and dependency injection eliminate much of the code we would otherwise have to write. And it all happens within the browser, making it an ideal partner with any server technology. AngularJS teaches the browser new syntax through a construct we call directives. Examples include:
 
-? Data binding, as in {{}}.
-? DOM control structures for repeating, showing and hiding DOM fragments.
-? Support for forms and form validation.
-? Attaching new behavior to DOM elements, such as DOM event handling.
-? Grouping of HTML into reusable components.
+\begin{itemize}
+\item Data binding.
+\item DOM control structures for repeating, showing and hiding DOM fragments.
+\item Support for forms and form validation.
+\item Attaching new behavior to DOM elements, such as DOM event handling.
+\item Grouping of HTML into reusable components.
+\end{itemize}
 
 AngularJS is not a single piece in the overall puzzle of building the client-side of a web application. It handles all of the DOM and AJAX glue code you once wrote by hand and puts it in a well-defined structure. This makes AngularJS opinionated about how a CRUD (Create, Read, Update, Delete) application should be built. But while it is opinionated, it also tries to make sure that its opinion is just a starting point you can easily change.
 
@@ -623,7 +600,7 @@ The solution we had in mind had the following architecture:
 
 A MySQL database stores the information about software projects. A Django Server is set up in order to retrieve this information and serve it to the client as the browser demands it. Finally, the browser executes and plots the data. This is the basic workflow in this architecture.
 
-The final result, in a basic version, can be seen in the next browser screenshot:
+The final result, in a basic version, can be seen in figure \ref{img:old-pfc-dygraph}
 
 %\ref{fig:old-pfc-dygraph}
 \begin{figure}
@@ -713,13 +690,6 @@ First of all, we need a server. We decided to use the python built-in HTTP serve
 \begin{lstlisting}
 python -m SimpleHTTPServer
 \end{lstlisting}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=15cm, keepaspectratio]{img/old-pfc-dygraph}
-  \caption{Simple browser visualization of commits timeseries}
-  \label{fig:old-pfc-dygraph}
-\end{figure}
 
 So whatever is put in an index.html file, the server serves it. We start creating and modifying this file, which you can completely see at the appendix \ref{sec:appendix} of this paper. You can see the final result of this Sprint in figure \ref{fig:index-ES-threeDC}.
 
@@ -894,17 +864,14 @@ Finally, we define the ncommitsTemplate mentioned as follows:
   <div class="row">
     <div class="col-12-sm">
 			<a href="#/">Index list</a>
-      <h1>Number of commits in commits_index: {{ ctrl.ncommits }}</h1>
-    </div>
-  </div>
-</div>
+      <h1>Number of commits in commits_index: {{ ctrl.ncommits }}</h1></div></div></div>
 \end{lstlisting}
 
 The final result can be seen in Fig \ref{fig:elasticsearch-app-ncommits}.
 
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{img/elasticsearch-app-ncommits}
+  \includegraphics[width=18cm, keepaspectratio]{img/elasticsearch-app-ncommits}
   \caption{Custom app plugin result}
   \label{fig:elasticsearch-app-ncommits}
 \end{figure}
@@ -938,11 +905,7 @@ export default function (kibana) {
 	return new kibana.Plugin({
 		uiExports: {
 			visTypes: [
-				'plugins/sprint2_plugin/sprint2'
-      		]
-    	}
-  	});
-};
+				'plugins/sprint2_plugin/sprint2']}})};
 \end{lstlisting}
 
 \end{itemize}
@@ -1022,7 +985,6 @@ module.controller('3DCubeController', function($scope, $element){
         mesh.rotation.x += 0.01;
         mesh.rotation.y += 0.02;
         renderer.render(scene, camera);}});
-
 \end{lstlisting}
 
 The key in correctly inserting the scene in Kibana is in using the \$element service\footnote{\url{https://docs.angularjs.org/api/ng/function/angular.element}}, as it can be seen in the controller declaration in the code above. This angularJS service allows us to access jQuery functions from the controller. So jQuery functions children() and find() are used in order to find the correct div to insert in. Once found, all the scene is inserted here by using the appendChild HTML DOM manipulation function and the DOM element containing the scene returned from the renderer itself.
@@ -1207,7 +1169,7 @@ It is also worth mentioning that filters are smart: they detect if the clicked s
 
 \subsection{Field filters}
 
-The plugin supports adding field filters on click, that is, when a slice or bar or bubble is clicked, the corresponding filters are added in Kibana. This is done by using the filter manager service. This is found in ui/filter_manager directory of Kibana, and it has to be instantiated using the Private service to instantiate the filter service, which is responsible for instantiating angular services from required modules.
+The plugin supports adding field filters on click, that is, when a slice or bar or bubble is clicked, the corresponding filters are added in Kibana. This is done by using the filter manager service. This is found in ui\/filter\_manager directory of Kibana, and it has to be instantiated using the Private service to instantiate the filter service, which is responsible for instantiating angular services from required modules.
 
 \begin{lstlisting}
 	var filterManager = Private(require('ui/filter_manager'));
@@ -1272,6 +1234,7 @@ In this dashboard, we can apply filter by clicking a slice, a bar or a bubble. W
 
 \section{Introduction}
 
+In this chapter the final aspects and usability of the plugin will be exposed. In first place, a complete architecture of the final plugin is given. Next, a full user guide is given in order to explain in detail every feature of the plugin from a user's view.
 \section{Architecture}
 
 In figure \ref{fig:3dcharts-architecture} the final architecture of this plugin is displayed. Many of these files have been already explained across this paper.
@@ -1398,61 +1361,58 @@ In second place, in each of the charts, when mousing over a slice, bar or bubble
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
-\chapter{Conclusiones}
-\label{chap:conclusiones}
+\chapter{Conclusions}
+\label{chap:conclusions}
 
-
-\section{Consecución de objetivos}
+\section{Objectives achievement}
 \label{sec:consecucion-objetivos}
 
-Esta sección es la sección espejo de las dos primeras del capítulo de objetivos,
-donde se planteaba el objetivo general y se elaboraban los específicos.
+We can say that we fullfilled the objectives established for this project. We have successfully integrated 3D charts in Kibana.
 
-Es aquí donde hay que debatir qué se ha conseguido y qué no. Cuando algo no
-se ha conseguido, se ha de justificar, en términos de qué problemas se han
-encontrado y qué medidas se han tomado para mitigar esos problemas.
+Some 3D charts have been added to Kibana in the form of new visualizations appearing in its menu. Finally, we have managed to integrate 3 different types of 3D visualizations: a 3D pie chart, a 3D bars chart and a 3D bubbles chart. Maybe I could have added one or two more, but I decided they were not so interesting and didn't contemplate this possibility.
 
+In second place, a lot of work has been done with threedc.js. We have to remind here that this was a very new technology developed by a student, and using this library for the first time in another system was both challenging and dangerous. Somo blocking issues have appeared along this project with the library. Luckily, I was close in touch with the developer and he acceeded to my petitions to correct bugs, improve some functionalities and even add new functionalities! We have agreed for example to introduce customizable filters to the scenes.
 
-\section{Aplicación de lo aprendido}
+Another challenging issue was to work with such a fairly new tool as Kibana is. Particularly, what was really complicated is to develop a plugin for this system, as there is no official documentation on how to do it, and things even get broken when there is some release. This was not clear at all and I had to figure out what the problem was by myself, as I upgraded Kibana several times through the developing of this plugin. To get an idea of the difficulty of this task, I have to mention I have spent in one occasion more than a week to write the exact three lines of code I needed (this happened with the time filter), after a large research and contacting other developers.
+
+In the moment this paper is written, the plugin is already officially recognized by the elastic team and published in their list of known plugins\footnote{\url{https://www.elastic.co/guide/en/kibana/current/known-plugins.html}}. The project has been published only about two weeks ago and is starting to be tested and used by the community. So far, 29 people have successfully cloned the project, and about 500 people have taken a look to the project itself. Two weeks is a very short time, and traffic is expected to grow as the project gains popularity across the community.
+
+\section{Application of lessons learned}
 \label{sec:aplicacion}
 
-Aquí viene lo que has aprendido durante el Grado/Máster y que has aplicado
-en el TFG/TFM. Una buena idea es poner las asignaturas más relacionadas y
-comentar en un párrafo los conocimientos y habilidades puestos en práctica.
+Although I have coursed 63 assignments in my career, not so many of them have been used to develop this project. But there is no doubt I have used many concepts and habilities acquired through assignments such as "Programming Fundamentals", "Telematic Systems I", "Telematics Systems II", "Bases of Programming Languages", "Programming Methodology", "Object Oriented Programming", "Telematic Applications and Systems", "Software Engineering", "Database Design" and "Multimedia, Interactive, Distributed and Scalable Applications". They have all offered me a great view of a great number of technologies, earning at the same time precious abilities so that this project didn't seem overwhelming.
 
-\begin{enumerate}
-  \item a
-  \item b
-\end{enumerate}
+At the same time, I have to mention that Javascript language was almost unknown to me, and we only touched this programming language in one or two clases. This was one of my difficulties in this project, as I had to learn all the Javascript syntax and particularities on my own.
 
-
-\section{Lecciones aprendidas}
+\section{Lessons learned}
 \label{sec:lecciones_aprendidas}
 
-Aquí viene lo que has aprendido en el Trabajo Fin de Grado/Máster.
+I can say I have learned the following skills through this project, ordered from the most important and challenging to the less important:
 
-\begin{enumerate}
-  \item a
-  \item b
-\end{enumerate}
+\begin{itemize}
+
+\item Javascript programming language from zero. HTML5 and AngularJS.
+\item Use of the open source tool of data visualization and dashboard Kibana, as well as to
+develop for this tool and to fit to its peculiarities.
+\item Solving different programming issues just by reading source code written by others
+\item Improvement of my abilites in the programming community: advanced use of github, communicating with other developers through official forums
+\item Knowledge of a non-relational database system and its syntax: ElasticSearch
+\item Use of \LaTeX by developing the degree thesis, an interesting  document preparation system.
+\end{itemize}
 
 
-\section{Trabajos futuros}
+\section{Future work}
 \label{sec:trabajos_futuros}
 
-Ningún software se termina, así que aquí vienen ideas y funcionalidades
-que estaría bien tener implementadas en el futuro.
+We have reached our main goals, but there is still work that can be done to improve it. I will mention some guidelines on some new or improved features:
 
-Es un apartado que sirve para dar ideas de cara a futuros TFGs/TFMs.
+\begin{itemize}
 
-
-\section{Valoración personal}
-\label{sec:valoracion}
-
-Finalmente (y de manera opcional), hay gente que se anima a dar su punto de
-vista sobre el proyecto, lo que ha aprendido, lo que le gustaría haber aprendido,
-las tecnologías utilizadas y demás.
-
+\item Add some more 3D charts
+\item Work with the scene dimensions in order to adapt it to each screen, as well as playing with the size and centering of the graphs to adjust them perfectly when initializing them in a Kibana dashboard
+\item Adding extra options to show to user, such as choosing different interesting scene parameters: chart colors, number of sources of light, materials opacity, etc
+\item Investigate and improve performance. At the moment, when displaying more than one scene specially, the dashboard begins to move quite slowly the scene when having a lot of data.
+\end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1801,50 +1761,41 @@ export default function Sprint2Provider(Private) {
 \chapter{Bibliography}
 \label{sec:bib}
 
-Scrum:
-http://scrummethodology.com/scrum-sprint/
+\begin{enumerate}
+\item Scrum:
+\url{http://scrummethodology.com/scrum-sprint/}
 
-Javascript:
-Marijn Haverbeke, \textit{Eloquent JavaScript}. 2014
-http://www.w3schools.com/js/
+\item Javascript:
+ Marijn Haverbeke, \textit{Eloquent JavaScript}. 2014
 
-Node and npm:
-https://www.sitepoint.com/beginners-guide-node-package-manager/
+\url{http://www.w3schools.com/js/}
 
-Angular:
-http://campus.codeschool.com/courses/shaping-up-with-angular-js
-https://www.toptal.com/angular-js/a-step-by-step-guide-to-your-first-angularjs-app
-http://www.w3schools.com/angular/
+\item Node and npm:
+\url{https://www.sitepoint.com/beginners-guide-node-package-manager/}
 
-Kibana plugins:
-https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-basics/
-https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizations/
-https://www.timroes.de/2015/12/06/writing-kibana-4-plugins-visualizations-using-data/
-https://www.timroes.de/2016/02/17/writing-kibana-4-plugins-field-formatters/
-https://www.timroes.de/2016/02/21/writing-kibana-plugins-custom-applications/
+\item Angular:
+\url{http://campus.codeschool.com/courses/shaping-up-with-angular-js}
+\url{https://www.toptal.com/angular-js/a-step-by-step-guide-to-your-first-angularjs-app}
+\url{http://www.w3schools.com/angular/}
 
-webGl
+\item Kibana plugins:
+\url{https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-basics/}
+\url{https://www.timroes.de/2015/12/02/writing-kibana-4-plugins-simple-visualizations/}
+\url{https://www.timroes.de/2015/12/06/writing-kibana-4-plugins-visualizations-using-data/}
+\url{https://www.timroes.de/2016/02/17/writing-kibana-4-plugins-field-formatters/}
+\url{https://www.timroes.de/2016/02/21/writing-kibana-plugins-custom-applications/}
 
-https://en.wikipedia.org/wiki/WebGL
-https://www.chromeexperiments.com/experiment/webgl-water-simulation
+\item webGl:
+\url{https://en.wikipedia.org/wiki/WebGL}
+\url{https://www.chromeexperiments.com/experiment/webgl-water-simulation}
 
-three
+\item three
+\url{https://github.com/mrdoob/three.js}
+\url{http://helloracer.com/}
 
-https://github.com/mrdoob/three.js
-http://helloracer.com/
+\item kibana and elasticsearch:
+\url{https://www.elastic.co}
 
-kibana and elasticsearch:
-https://www.elastic.co
-
-% Las siguientes dos instrucciones es todo lo que necesitas
-% para incluir las citas en la memoria
-\bibliographystyle{abbrv}
-\bibliography{memoria}  % memoria.bib es el nombre del fichero que contiene
-% las referencias bibliográficas. Abre ese fichero y mira el formato que tiene,
-% que se conoce como BibTeX. Hay muchos sitios que exportan referencias en
-% formato BibTeX. Prueba a buscar en http://scholar.google.com por referencias
-% y verás que lo puedes hacer de manera sencilla.
-% Más información: 
-% http://texblog.org/2014/04/22/using-google-scholar-to-download-bibtex-citations/
+\end{enumerate}
 
 \end{document}
