@@ -461,13 +461,59 @@ In this project, an elasticsearch server has been set up and all elasticsearch q
 
 Kibana is an open source analytics and visualization platform for Elasticsearch. It provides visualization capabilities on top of the content indexed on an Elasticsearch cluster. Kibana is used to search, view, and interact with data stored in Elasticsearch indices. Advanced data analysis and visualization can be easily performed in a variety of charts, tables and map. Kibana makes it easy to understand large volumes of data.
 
-Next, we will show basic Kibana functionality and its possibilities, as well as a basic set up.
+Next, the most important pages in Kibana will be explained. Then, we will go through other Kibana worth-mentioning features.
 
+In figure \ref{fig:kibana_tabs} Kibana pages are shown. These three are used in 99\% of the cases when working with Kibana:
 
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/kibana_tabs}
+  \caption{Kibana pages}
+  \label{fig:kibana_tabs}
+\end{figure}
 
-TODO: Pegar las dos imágenes de Discover, visualize y el dashboard de bitergia. Explicar filtros, datos en la pestaña discover, las visualizaciones y el funcionamiento del dashboard.
+\begin{itemize}
+\item Discover. Data can be interactively explored in this page. We have access to every document in every index that matches the selected index pattern. We can submit search queries, filter the search results, and view document data. We can also see the number of documents that match the search query and get field value statistics. If a time field is configured for the selected index pattern, the distribution of documents over time is displayed in a histogram at the top of the page.
+
+\item Visualize. Visualize enables us to create visualizations of the data in our Elasticsearch indices. We can then build dashboards that display related visualizations. Kibana visualizations are based on Elasticsearch queries. By using a series of Elasticsearch aggregations to extract and process the data, we can create charts that show the trends, spikes, and dips we need to know about.
+We can create visualizations from a search saved from Discover or start with a new search query. There is a limited types of visualizations available in Kibana: Area chart, Data table, Line chart, Markdown widget, Metric, Pie chart, Tag cloud, Tile map, Timeseries, Vertical bar chart There are also independent developers that have created some more visualizations. The elastic team maintains an updated list of these plugins\footnote{\url{https://www.elastic.co/guide/en/kibana/current/known-plugins.html}
+
+\item Dashboard. Undoubtely, the most powerful feature of Kibana. It allows the user to display a collection of saved visualizations. These visualizations can be arranged and resized as needed. Dashboards can also be saved so they can be reloaded and shared. A quite complete dashboard can be seen in figure \ref{fig:complete-dashboard-kibana}.
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/complete-dashboard-kibana}
+  \caption{Example dashboard in Kibana}
+  \label{fig:complete-dashboard-kibana}
+\end{figure}
+
+Some other key features of Kibana are the filters. Filters can easily be added to the data using the always-displayed top right time filter or by clicking some data in the Discover page, or even by clicking different parts of some visualizations. In dashboards, added filters on the go make all visualizations to refresh in order to display the new filtered data.
 
 \section{AngularJS}
+
+AngularJS is a structural framework for dynamic web apps. It lets us use HTML as a template language and lets us extend HTML?s syntax to clearly express our application?s components. Angular?s data binding and dependency injection eliminate much of the code we would otherwise have to write. And it all happens within the browser, making it an ideal partner with any server technology. AngularJS teaches the browser new syntax through a construct we call directives. Examples include:
+
+? Data binding, as in {{}}.
+? DOM control structures for repeating, showing and hiding DOM fragments.
+? Support for forms and form validation.
+? Attaching new behavior to DOM elements, such as DOM event handling.
+? Grouping of HTML into reusable components.
+
+AngularJS is not a single piece in the overall puzzle of building the client-side of a web application. It handles all of the DOM and AJAX glue code you once wrote by hand and puts it in a well-defined structure. This makes AngularJS opinionated about how a CRUD (Create, Read, Update, Delete) application should be built. But while it is opinionated, it also tries to make sure that its opinion is just a starting point you can easily change.
+
+AngularJS simplifies application development by presenting a higher level of abstraction to
+the developer. Like any abstraction, it comes at a cost of flexibility. In other words, not every
+app is a good fit for Angular. AngularJS was built with the CRUD application in mind. Luckily
+CRUD applications represent the majority of web applications. To understand what AngularJS
+is good at, though, it helps to understand when an app is not a good fit for Angular.
+
+Games and GUI editors are examples of applications with intensive and tricky DOM ma-
+nipulation. These kinds of apps are different from CRUD apps, and as a result are probably
+not a good fit for Angular. In these cases it may be better to use a library with a lower level of
+abstraction, such as jQuery.
+
+Kibana exploits AngularJS power in order to build its pages. Also, in order to develop this project, AngularJS and all its features had to be used (scopes, modules, directives,...).
 
 \section{webGL}
 
@@ -504,11 +550,7 @@ As WebGL is an advanced technology designed to work directly with the Graphics P
   \label{fig:threedcexample}
 \end{figure}
 
-\section{Context}
 
-Mention ManyEyes, Freeboard, Carabel
-
-Search for dashboards 3D - similar solutions - if there are
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DISEÑO E IMPLEMENTACIÓN %
@@ -1145,16 +1187,80 @@ var bucketsy = bucketx[barsyAggId].buckets;
 
 So far we have managed to make kibana query elasticsearch for all the data we need to plot the charts. But this is not all the work it is need to be done. Some tedious work is still to be performed. This work consists in taking the data from the Kibana buckets and metrics aggregations and adapt it to the threeDC format.
 
-TODO: explicar el formato de entrada de threeDC, explicar el proceso muy por encima
+We won't get into detail of how these algorythms were performed, but buckets and metrics have been treated in Javascript in order to get key-value pairs, in the format threeDC expects it. In the case of the pie chart, only one key and one value have been necessary to extract from the buckets and metrics, putting them in an ordered array of pair of this type.
+
+For the bars chart and bubbles chart, similar data algorythms have been used, but this time each element in the array had more than one key or more than one value. It was important to keep the order in this array, that is, to go row by row in the data. Otherwise, threeDC library fails to plot it.
 
 \section{Sprint 4: Kibana integration}
 
+In this section, how filters were implemented will be explained. This Sprint has not been performed only at the end of this project, but things have been carefully studied in order to get this Kibana integration running smoothly. For example, we played with char dimensions, bugs were reported to threeDC library and fixed, and investigation have been made on the go in order to explore the possibility and reach of these filters.
+
+In order to apply a filter function to a threeDC object, a mouse event is bind to that object, in the following way:
+
+\begin{lstlisting}
+dash.domEvents.bind(mesh, 'mousedown', function(object3d){
+	//filter function code
+});
+\end{lstlisting}
+
+It is also worth mentioning that filters are smart: they detect if the clicked slice, bar or bubble is representing a date or simply another type of field in order to implement a normal field filter or a time filter. This is done simply by inspecting the format of that field and launching one filter function or the other.
+
 \subsection{Field filters}
+
+The plugin supports adding field filters on click, that is, when a slice or bar or bubble is clicked, the corresponding filters are added in Kibana. This is done by using the filter manager service. This is found in ui/filter_manager directory of Kibana, and it has to be instantiated using the Private service to instantiate the filter service, which is responsible for instantiating angular services from required modules.
+
+\begin{lstlisting}
+	var filterManager = Private(require('ui/filter_manager'));
+\end{lstlisting}
+
+Next, the add function of this service can be used. Let's take a look at its implementation in the 3D pie controller for example. Each field is explained in the code commentaries.
+\begin{lstlisting}
+    filterManager.add(
+    // The field to filter for, we can get it from the config
+    $scope.vis.aggs.bySchemaName['slices'][0].params.field,
+    // The value to filter for, we will read out the bucket key
+    mesh.data.key,
+    // Whether the filter is negated. If you want to create a negated filter pass '-' here
+    null,
+    // The index pattern for the filter
+    $scope.vis.indexPattern.title
+    );
+\end{lstlisting}
 
 \subsection{Date filters}
 
+The previous function only adds "normal" filter, it doesn't manage time ranges and much less it adds it directly to the Kibana time filter. Many lines of code have been read until the next solution came to solve this problem. The process is explained in the next paragraphs:
+
+\begin{enumerate}
+\item First of all, dates need to be managed in the javascript code. We used the 'moment' library in order to perform actions such as interpreting different text time formats, adding intervals to time expressed in different units or constructing moment objects that represent time.
+
+\begin{lstlisting}
+    var from = moment(mesh.data.key);
+    var interval = moment($scope.slices[1].key) - moment($scope.slices[0].key);
+    var to = moment(from).add('ms', interval);
+\end{lstlisting}
+
+\item The rootScope service has been used in order to access timefilter fields in Kibana. Once done, we can assign them our own calculated values for time.
+
+\begin{lstlisting}
+    $rootScope.$$timefilter.time.from = from;
+    $rootScope.$$timefilter.time.to = to;
+    $rootScope.$$timefilter.time.mode = 'absolute';
+\end{lstlisting}
+\end{enumerate}
+
 \subsection{Dashboard}
 
+As it has been previously said, in order to correctly view our visualizations in a dashboard, nothing special was done in this sprint but to carefully build the visualizations so that integrate well when using the dashboard page (for example, taking care to refresh the charts when new data had been retrieved, or naming the divs accordingly in order to get independability). The final result can be seen in figure \ref{fig:3Ddashboard}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{img/3Ddashboard}
+  \caption{Built dashboard showing the 3 developed visualizations at the same time}
+  \label{fig:3Ddashboard}
+\end{figure}
+
+In this dashboard, we can apply filter by clicking a slice, a bar or a bubble. We can also apply filters in the Kibana way, of course: by touching the top right time filter or adding a filter manually in the filter bar. When we apply a filter, all charts correctly refresh in order to show the new data. Kibana default visualizations can be added in the dashboard and it integrates with the 3D charts fluently.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1168,14 +1274,14 @@ TODO: explicar el formato de entrada de threeDC, explicar el proceso muy por enc
 
 \section{Architecture}
 
+In figure \ref{fig:3dcharts-architecture} the final architecture of this plugin is displayed. Many of these files have been already explained across this paper.
+
 \begin{figure}
   \centering
   \includegraphics[width=15cm, keepaspectratio]{img/3dcharts-architecture}
-  \caption{The 3 new plugin visualizations in Kibana menu}
+  \caption{Plugin's file architecture}
   \label{fig:3dcharts-architecture}
 \end{figure}
-
-
 
 \section{User Guide}
 
@@ -1215,7 +1321,7 @@ The result of such an example can be seen in Figure \ref{fig:onlypie3D}. When th
 \begin{figure}
   \centering
   \includegraphics[width=15cm, keepaspectratio]{img/onlypie3D}
-  \caption{The 3 new plugin visualizations in Kibana menu}
+  \caption{3D pie}
   \label{fig:onlypie3D}
 \end{figure}
 
@@ -1242,7 +1348,7 @@ The result of such an example can be seen in Figure \ref{fig:onlybars3D}. When t
 \begin{figure}
   \centering
   \includegraphics[width=15cm, keepaspectratio]{img/onlybars3D}
-  \caption{The 3 new plugin visualizations in Kibana menu}
+  \caption{3D bars chart}
   \label{fig:onlybars3D}
 \end{figure}
 
@@ -1254,7 +1360,7 @@ After selecting "3D Bubbles Chart" in the menu and selecting the index pattern t
 \begin{figure}
   \centering
   \includegraphics[width=15cm, keepaspectratio]{img/bubbles-aggregations-menu}
-  \caption{3D Bars visualization aggregations menu}
+  \caption{3D Bubbles visualization aggregations menu}
   \label{fig:bubbles-aggregations-menu}
 \end{figure}
 
@@ -1273,7 +1379,7 @@ The result of such an example can be seen in Figure \ref{fig:onlybubbles3D}. Whe
 \begin{figure}
   \centering
   \includegraphics[width=15cm, keepaspectratio]{img/onlybubbles3D}
-  \caption{The 3 new plugin visualizations in Kibana menu}
+  \caption{3D Bubble chart}
   \label{fig:onlybubbles3D}
 \end{figure}
 
