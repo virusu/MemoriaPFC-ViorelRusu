@@ -366,7 +366,7 @@ The Elastic team maintains a list of plugins developed by external developers. T
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
-\chapter{Context and Used technologies}
+\chapter{Used technologies}
 \label{sec:technologies}
 
 \section{HTML5}
@@ -520,6 +520,8 @@ The WebGL API may be too tedious to use directly without some utility libraries,
   \label{fig:webglexample}
 \end{figure}
 
+In Figure \ref{fig:webglexample} an example of what can be done with WebGL is displayed.
+
 As WebGL is an advanced technology designed to work directly with the Graphics Processing Unit, it is hard to code compared to other web standards which are more accesibles. This is the reason why many JavaScript libraries have appeared, to solve this problem. The most famous webGL library in terms of users is Three.js. It is light and not so complex compared with the original webGL specification. This is also the library that has been used in this project, and we will explain this library in the next section.
 
 \section{Three.js} 
@@ -564,7 +566,7 @@ In this project, all scenes are three.js scenes. This means that every 3D chart 
 
 ThreeDC.js is a webGL Based 3D library for building 3D charts, developed during 2016 by an URJC student. It does not use webGL directly, but is built on top of three.js, which provides a higher level of abstraction.
 
-ThreeDC provides easy usable 3D charts. The 3D charts it provides at the moment are: bars chart, line chart, pie chart, smooth curve chart, bubbles chart, scatter chart and panels to contain these charts. In figure \ref{fig:threedcexample} an entire world of charts is shown, as a sample of this library's power. 
+ThreeDC provides easy usable 3D charts. The 3D charts it provides at the moment are: bars chart, line chart, pie chart, smooth curve chart, bubbles chart, scatter chart and panels to contain these charts. In Figure \ref{fig:threedcexample} an entire world of charts is shown, as a sample of this library's power. 
 
 \begin{figure}
   \centering
@@ -604,7 +606,6 @@ There are three basic roles in this methodology:
 
 In the Scrum Methodology, work is confined to repeatable work cycles known as sprints or iterations. Scrum is iterative and incremental. This means that product is always build on previous iteration, adding new features each time. During each sprint, the development team creates a potentially shippable product increment.
 
-
 %\ref{fig:scrum-workflow}
 \begin{figure}
   \centering
@@ -614,7 +615,7 @@ In the Scrum Methodology, work is confined to repeatable work cycles known as sp
 \end{figure}
 
 
-In each sprint a Sprint Backlog is defined. It collects all the tasks that are needed to be done and who is going to do them, as well as an estimation for the time needed for each task to be completed.
+In each sprint a Sprint Backlog is defined. It collects all the tasks that are needed to be done and who is going to do them, as well as an estimation for the time needed for each task to be completed. Figure \ref{fig:scrum-workflow} shows a typical Scrum workflow.
 
 A natural question comes in mind at this point: can this methodology be at any help in a software project developed entirely by a single person? Although Scrum was not designed for this particular simple case, it can be very helpful. There won't be a Product Owner, a Scrum aster and a Team as such, but the methodology remains useful. This is because its main advantages are based on its flexibility and product control, and this is obtained even if the project is entirely developed by a single person! It provides control, adaptability and flexibility independently of the size of the project and number of people involved.
 
@@ -649,7 +650,7 @@ The solution we had in mind had the following architecture:
 
 A MySQL database stores the information about software projects. A Django Server is set up in order to retrieve this information and serve it to the client as the browser demands it. Finally, the browser executes and plots the data. This is the basic workflow in this architecture.
 
-The final result, in a basic version, can be seen in figure \ref{img:old-pfc-dygraph}
+The final result, in a basic version, can be seen in Figure \ref{img:old-pfc-dygraph}
 
 %\ref{fig:old-pfc-dygraph}
 \begin{figure}
@@ -740,7 +741,7 @@ First of all, we need a server. We decided to use the python built-in HTTP serve
 python -m SimpleHTTPServer
 \end{lstlisting}
 
-So whatever is put in an index.html file, the server serves it. We start creating and modifying this file, which you can completely see at the appendix \ref{sec:appendix} of this paper. You can see the final result of this Sprint in figure \ref{fig:index-ES-threeDC}.
+So whatever is put in an index.html file, the server serves it. We start creating and modifying this file, which you can completely see at the Appendix \ref{sec:index.html} of this paper. You can see the final result of this Sprint in Figure \ref{fig:index-ES-threeDC}.
 
 \begin{figure}
   \centering
@@ -781,7 +782,7 @@ Now, in the controller, we call a method of this API to retrieve some informatio
         }
 \end{lstlisting}
 
-Then, the result is attached to the scope so it is easy to print this result directly from the html through angular. The result can be seen in the first section of the previous figure \ref{fig:index-ES-threeDC}. The complete code in detail can also be found in Appendix \ref{sec:script.js}.
+Then, the result is attached to the scope so it is easy to print this result directly from the html through angular. The result can be seen in the first section of the previous Figure \ref{fig:index-ES-threeDC}. The complete code in detail can also be found in Appendix \ref{sec:script.js}.
 
 In the second place, we will focus on building our first real threeDC graph. In the next paragraphs, only main scene scheleton will be described. Details and secondary commentaries will be left for the reader to investigate in Appendix \ref{sec:script.js}.
 
@@ -904,7 +905,7 @@ uiModules
 });
 \end{lstlisting}
 
-For a detailed explanation on routes please consult the excellent Tim Roes tutorial about writing  custom applications(1), in which this sprint was based.
+For a detailed explanation on routes please consult the excellent Tim Roes tutorial about writing  custom applications, in which this sprint was based.
 
 Finally, we define the ncommitsTemplate mentioned as follows:
 
@@ -916,7 +917,7 @@ Finally, we define the ncommitsTemplate mentioned as follows:
       <h1>Number of commits in commits_index: {{ ctrl.ncommits }}</h1></div></div></div>
 \end{lstlisting}
 
-The final result can be seen in Fig \ref{fig:elasticsearch-app-ncommits}.
+The final result can be seen in Figure \ref{fig:elasticsearch-app-ncommits}.
 
 \begin{figure}
   \centering
@@ -926,12 +927,11 @@ The final result can be seen in Fig \ref{fig:elasticsearch-app-ncommits}.
 \end{figure}
 
 
-
 \section{Sprint 2: 3D Basic Pie Visualization}
 
 \subsection{Hello World visualization plugin}
 
-In this section, a very basic plugin in Kibana will be built from scratch. The final result can be seen in figure XXX
+In this section, a very basic visualization type plugin in Kibana will be built from scratch. It is intended to make this plugin as simple as it is possible, for example only showing a "Hello World" message.
 
 In Kibana, developed plugins go into Kibana/plugins/ directory. The first thing to know about Kibana plugins is that every plugin is actually a npm module. Like every npm module, two basic files need to be created:
 
@@ -963,7 +963,7 @@ In order to define a basic functionality showing up "Hello World" inside the vis
 
 \begin{itemize}
 
-\item sprint2.js. In this file, we define our visualization setting parameters like a title, a description or an icon to appear in visualization list. We also define here the controller for our div in Kibana, which we will describe in the next paragraph. Full code can be seen in appendix xxx(sprint2.js)
+\item sprint2.js. In this file, we define our visualization setting parameters like a title, a description or an icon to appear in visualization list. We also define here the controller for our div in Kibana, which we will describe in the next paragraph. Full code can be seen in Appendix \ref{sec:sprint2.js}.
 
 \item sprint2.html. In this file, a basic div is defined. It is defined as a controller, so a basic angularJS structure is used to attach a parameter named 'name' and show it in Kibana through the template. 
 \end{itemize}
@@ -1286,7 +1286,7 @@ In this dashboard, we can apply filter by clicking a slice, a bar or a bubble. W
 In this chapter the final aspects and usability of the plugin will be exposed. In first place, a complete architecture of the final plugin is given. Next, a full user guide is given in order to explain in detail every feature of the plugin from a user's view.
 \section{Architecture}
 
-In figure \ref{fig:3dcharts-architecture} the final architecture of this plugin is displayed. Many of these files have been already explained across this paper.
+In figure \ref{fig:3dcharts-architecture} the final architecture of this plugin is displayed. All these files, with this structure, can be found in the github project\footnote{\url{https://github.com/virusu/3D_kibana_charts_vis}}. As it has been previously said, a Kibana plugin has a predefined structure. Next, we will explain what the different files are, categorized by color:
 
 \begin{figure}
   \centering
@@ -1294,6 +1294,16 @@ In figure \ref{fig:3dcharts-architecture} the final architecture of this plugin 
   \caption{Plugin's file architecture}
   \label{fig:3dcharts-architecture}
 \end{figure}
+
+\begin{itemize}
+\item \textbf{package.json} is necessary in order to define the npm package. As it has been said, the plugin is a npm package itself. This file contains info such as name, version and dependency of other packages.
+\item \textbf{index.js} is the npm module itself and setups everything the plugin needs. A new instance of Kibana must be created in this file and it also specifies that this plugin is a visualization type plugin.
+\item \textbf{vr\_vis.js} is the main file that defines the visualization and launches everything else. It has general information such as  visualization icon and where to find the templates, each template and each controller for each template.
+\item \textbf{pie3D.js}, \textbf{pie3Dcontroller.js} and \textbf{pie3D.html} define the behaviour of the 3D pie. The html file contains the template, the .js main file contains the visualization definition and then we have the controller living in its own folder.
+\item \textbf{bars3D.js}, \textbf{bars3Dcontroller.js} and \textbf{bars3D.html}: they define all the behaviour for the 3D bars.
+\item \textbf{bubbles3D.js}, \textbf{bubbles3Dcontroller.js} and \textbf{bubbles3D.html}: they define all the behaviour for the 3D bubbles.
+\item \textbf{threedc} folder contains all that has to do with the graphics. Most importantly, it contains the threeDC librry itself. Then, it contains all the extensions that are necessary for this library to work properly.
+\end{itemize}
 
 \section{User Guide}
 
@@ -1453,14 +1463,14 @@ develop for this tool and to fit to its peculiarities.
 \section{Future work}
 \label{sec:trabajos_futuros}
 
-We have reached our main goals, but there is still work that can be done to improve it. I will mention some guidelines on some new or improved features:
+We may have reached our main goals, but there is still work that can be done to improve this project. I will mention some guidelines on some new or improved features:
 
 \begin{itemize}
 
 \item Add some more 3D charts
-\item Work with the scene dimensions in order to adapt it to each screen, as well as playing with the size and centering of the graphs to adjust them perfectly when initializing them in a Kibana dashboard
+\item Work with the scene dimensions in order to adapt it to each user screen, as well as playing with the size and centering of the graphs to adjust them perfectly when initializing them in a Kibana dashboard
 \item Adding extra options to show to user, such as choosing different interesting scene parameters: chart colors, number of sources of light, materials opacity, etc
-\item Investigate and improve performance. At the moment, when displaying more than one scene specially, the dashboard begins to move quite slowly the scene when having a lot of data.
+\item Investigate on improving performance. At the moment, when displaying more than one scene specially, the dashboard begins to move quite slowly when having a lot of data.
 \end{itemize}
 
 
@@ -1475,7 +1485,7 @@ We have reached our main goals, but there is still work that can be done to impr
 \chapter{Appendix}
 
 \section{index.html from Sprint1}
-
+\label{sec:index.html}
 Complete index.html file from Sprint 1
 
 \begin{lstlisting}[frame=single]
