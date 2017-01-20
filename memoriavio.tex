@@ -339,6 +339,19 @@ In order to sum it up, we can express our solution with the following words: it 
 
 \end{enumerate}
 
+\section{Software availability}
+
+The plugin is hosted in the web-based Git repository hosting service GitHub, under open source
+software license. It has a web page of presentation where more information and details of the
+project are provided to the user. Inside the repository, where project?s software is hosted, there?s
+documentation like installing and uninstalling the plugin
+
+The Elastic team maintains a list of plugins developed by external developers. This plugin has been reviewed by this team and published on the official site. At the moment people is starting to use this plugin. Hundreds of people have viewed the project and a few dozens have downloaded the project.
+
+\begin{itemize}
+\item Project page: \url{https://virusu.github.io/3D_kibana_charts_vis/}
+\item Github repository: \url{https://github.com/virusu/3D_kibana_charts_vis}
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -442,7 +455,7 @@ In figure \ref{fig:kibana_tabs} Kibana pages are shown. These three are used in 
 
 \begin{figure}
   \centering
-  \includegraphics[height=12cm, keepaspectratio]{img/kibana_tabs}
+  \includegraphics[height=8cm, keepaspectratio]{img/kibana_tabs}
   \caption{Kibana pages}
   \label{fig:kibana_tabs}
 \end{figure}
@@ -477,7 +490,7 @@ AngularJS is a structural framework for dynamic web apps. It lets us use HTML as
 \item Grouping of HTML into reusable components.
 \end{itemize}
 
-AngularJS is not a single piece in the overall puzzle of building the client-side of a web application. It handles all of the DOM and AJAX glue code you once wrote by hand and puts it in a well-defined structure. This makes AngularJS opinionated about how a CRUD (Create, Read, Update, Delete) application should be built. But while it is opinionated, it also tries to make sure that its opinion is just a starting point you can easily change.
+AngularJS is not a single piece in the overall puzzle of building the client-side of a web application. It handles all of the DOM and AJAX glue code that was written by hand and puts it in a well-defined structure. This makes AngularJS opinionated about how a CRUD (Create, Read, Update, Delete) application should be built.
 
 AngularJS simplifies application development by presenting a higher level of abstraction to
 the developer. Like any abstraction, it comes at a cost of flexibility. In other words, not every
@@ -490,7 +503,7 @@ nipulation. These kinds of apps are different from CRUD apps, and as a result ar
 not a good fit for Angular. In these cases it may be better to use a library with a lower level of
 abstraction, such as jQuery.
 
-Kibana exploits AngularJS power in order to build its pages. Also, in order to develop this project, AngularJS and all its features had to be used (scopes, modules, directives,...).
+Kibana exploits AngularJS power in order to build its pages. Also, in order to develop this project, AngularJS and its main features had to be used (scopes, modules, directives,...).
 
 \section{webGL}
 
@@ -511,6 +524,33 @@ As WebGL is an advanced technology designed to work directly with the Graphics P
 
 \section{Three.js} 
 
+Three.js is a cross-browser JavaScript library/API used to create and display animated 3D computer graphics in a web browser using WebGL. Three.js allows the creation of GPU-accelerated 3D animations using the JavaScript language as part of a website without relying on proprietary browser plugins.
+
+Three.js includes the following features:
+
+\begin{itemize}
+
+
+\item Effects: Anaglyph, cross-eyed and parallax barrier.
+\item Scenes: add and remove objects at run-time; fog
+\item Cameras: perspective and orthographic; controllers: trackball, FPS, path and more
+\item Animation: armatures, forward kinematics, inverse kinematics, morph and keyframe
+\item Lights: ambient, direction, point and spot lights; shadows: cast and receive
+\item Materials: Lambert, Phong, smooth shading, textures and more
+\item Shaders: access to full OpenGL Shading Language (GLSL) capabilities: lens flare, depth pass and extensive post-processing library
+\item Objects: meshes, particles, sprites, lines, ribbons, bones and more - all with Level of detail
+\item Geometry: plane, cube, sphere, torus, 3D text and more; modifiers: lathe, extrude and tube
+\item Data loaders: binary, image, JSON and scene
+\item Utilities: full set of time and 3D math functions including frustum, matrix, quaternion, UVs and more
+\item Export and import: utilities to create Three.js-compatible JSON files from within: Blender, openCTM, FBX, Max, and OBJ
+\item Support: API documentation is under construction, public forum and wiki in full operation
+\item Examples: Over 150 files of coding examples plus fonts, models, textures, sounds and other support files
+\item Debugging: Stats.js, WebGL Inspector, Three.js Inspector
+\item Three.js runs in all browsers supported by WebGL.
+\end{itemize}
+
+In figure \ref{fig:threeexample} an example of what can be done with this library is shown. In particular, this a a cool racing game living in the browser and built entirely with three.js library.
+
 \begin{figure}
   \centering
   \includegraphics[width=15cm, keepaspectratio]{img/threeexample}
@@ -518,7 +558,13 @@ As WebGL is an advanced technology designed to work directly with the Graphics P
   \label{fig:threeexample}
 \end{figure}
 
+In this project, all scenes are three.js scenes. This means that every 3D chart built in this project has its own three.js objects: scenes, cameras, lights, materials, objects and geometry. But this library doesn't include predefined 3D charts. These charts were used using an extension of three.js called threeDC.js, which is exposed in the next section.
+
 \section{ThreeDC.js}
+
+ThreeDC.js is a webGL Based 3D library for building 3D charts, developed during 2016 by an URJC student. It does not use webGL directly, but is built on top of three.js, which provides a higher level of abstraction.
+
+ThreeDC provides easy usable 3D charts. The 3D charts it provides at the moment are: bars chart, line chart, pie chart, smooth curve chart, bubbles chart, scatter chart and panels to contain these charts. In figure \ref{fig:threedcexample} an entire world of charts is shown, as a sample of this library's power. 
 
 \begin{figure}
   \centering
@@ -527,6 +573,9 @@ As WebGL is an advanced technology designed to work directly with the Graphics P
   \label{fig:threedcexample}
 \end{figure}
 
+It is possible to move around in this world of data charts and even interact with them. When moving the mouse over an element, it shows info about that element. And when we click a certain element, all the other charts filter their data by that field we clicked on.
+
+In this project threeDC has been used to integrate the 3D bars chart, pie chart and bubbles chart into Kibana.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1792,6 +1841,7 @@ export default function Sprint2Provider(Private) {
 \item three
 \url{https://github.com/mrdoob/three.js}
 \url{http://helloracer.com/}
+\url{https://en.wikipedia.org/wiki/Three.js}
 
 \item kibana and elasticsearch:
 \url{https://www.elastic.co}
