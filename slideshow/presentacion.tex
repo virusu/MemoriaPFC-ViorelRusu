@@ -1,0 +1,362 @@
+
+% Este documento LaTeX fue diseñado por profesores  del Departamento de Matemáticas 
+% de la Universidad de Antioqua (http://ciencias.udea.edu.co/). Usted puede modificarlo
+% y personalizarlo a su gusto bajo los términos de la licencia de documentación libre GNU.
+% http://es.wikipedia.org/w/index.php?title=Licencia_de_documentaci%C3%B3n_libre_de_GNU&oldid=15717448
+
+\documentclass[serif,9pt]{beamer}
+\setbeamertemplate{navigation symbols}{}
+
+\usetheme{Warsaw}
+
+%\documentclass[serif,9pt]{beamer}
+%\usepackage[T1]{fontenc} % Needed for Type1 Concrete
+%\usepackage[charter]{mathdesign}
+
+%\usepackage[pdftex]{graphicx}
+
+\usepackage[latin1]{inputenc}
+\usepackage{listings}
+\usepackage{float} 
+
+
+\beamersetuncovermixins{\opaqueness<1>{25}}{\opaqueness<2->{15}}
+
+\begin{document}
+\title[Proyecto fin de carrera]{3D Charts for Kibana}  
+\author{Viorel Rusu}
+
+\institute[Universidad Rey Juan Carlos]{%
+  ESCUELA TÉCNICA SUPERIOR DE INGENIERÍA DE TELECOMUNICACIÓN\\
+  Universidad Rey Juan Carlos}
+\date{2017}
+
+\logo{\includegraphics[scale=0.1]{logo_vect}}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}\frametitle{Contenido}\tableofcontents
+\end{frame} 
+
+\section{Introducción} 
+
+\subsection{Contexto}
+
+\begin{frame}\frametitle{Datos, datos, datos} 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm, keepaspectratio]{data}
+  \label{fig:data}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}\frametitle{Visualización de datos}
+
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+\begin{figure}
+  \centering
+  \includegraphics[width=9cm, keepaspectratio]{grafana}
+  \caption{Graphana Dashboard}
+  \label{fig:grafana}
+\end{figure}
+    \column{0.5\textwidth}
+\begin{figure}
+  \centering
+  \includegraphics[width=9cm, keepaspectratio]{keen-io}
+  \caption{Keen.io Dashboard}
+  \label{fig:keen-io}
+\end{figure}
+  \end{columns}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=9cm, keepaspectratio]{qlikview}
+  \caption{Qlikview Dashboard}
+  \label{fig:qlikview}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=9cm, keepaspectratio]{tableau}
+  \caption{Tableau Dashboard}
+  \label{fig:tableau}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}\frametitle{Kibana}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm, keepaspectratio]{complete_dashboard_kibana}
+  \label{fig:dashboard_kibana_example}
+\end{figure}
+\end{frame}
+
+\subsection{Objetivos}
+\begin{frame}
+\frametitle{Objetivos}
+{\large
+Integrar un sistema de visualización de datos en 3 dimensiones en un sistema complejo de visualización e interacción de datos\begin{block}{Sub-objetivos}
+\begin{enumerate}
+\item Construir algunas visualizaciones complejas en 3 dimensiones
+\item Integrar escenas tridimensionales en Kibana
+\item Integrar distintas escenas en un dashboard
+\item Permitir filtrar datos mediante clicks en los objetos 3D
+\item Ayudar a la mejora y extensión de la biblioteca gráfica 3D usada
+
+\end{enumerate}
+\end{block}
+}
+\end{frame}
+
+%\begin{block}{title of the bloc}
+%bloc text
+%\end{block}
+
+%\begin{alertblock}{title of the bloc}
+%bloc text
+%\end{alertblock}
+
+\section{Tecnologías utilizadas} 
+
+\begin{frame}\frametitle{Tecnologías utilizadas} 
+{\LARGE 
+\begin{itemize}
+\item {HTML5}
+\item {Javascript}
+\item {ElasticSearch}
+\item {Kibana}
+\item {AngularJS}
+\item {webGL}
+\item {Three.js}
+\item {ThreeDC.js}
+\end{itemize}
+}
+\end{frame}
+
+%\begin{figure}
+%\includegraphics[scahle=0.2]{convection} 
+%\caption{show an example picture}
+%\end{figure}
+
+\section{Desarrollo} \label{desarrollo}
+\subsection{Metodología}
+\begin{frame}\frametitle{Metodología Scrum} 
+\begin{figure}
+\includegraphics[width=10cm, keepaspectratio]{scrum-workflow} 
+\caption{Metodología Scrum}
+\end{figure}
+
+\end{frame}
+\subsection{Sprints}
+
+\begin{frame}\frametitle{Iteraciones} 
+{\LARGE 
+\begin{itemize}
+\item \textbf{Sprint 0}: Investigación y exploración de tecnologías
+\item \textbf{Sprint 1}: Primeros sistemas usando elasticSearch, gráficos threeDC y Kibana
+\item \textbf{Sprint 2}: Gráfico básico de tarta 3D
+\item \textbf{Sprint 3}: Tratamiento de datos
+\item \textbf{Sprint 4}: Integración en Kibana
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Investigación}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{arquitectura-old-pfc}
+  \caption{Proposed architecture}
+  \label{fig:arquitectura-old-pfc}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Primeros sistemas}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{index-ES-threeDC}
+  \caption{Html page showing the result of an ES query and a threeDC chart}
+  \label{fig:index-ES-threeDC}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=18cm, keepaspectratio]{elasticsearch-app-ncommits}
+  \caption{Custom app plugin result}
+  \label{fig:elasticsearch-app-ncommits}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Tarta 3D}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{only-threejsprueba}
+  \caption{Three.js scene correctly inserted in Kibana}
+  \label{fig:only-threejsprueba}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{onlypie3D}
+  \caption{Tarta 3D integrada en Kibana}
+  \label{fig:onlypie3D}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Tratamiento de datos}
+
+\begin{itemize}
+\item Buckets, Metrics y elasticSearch
+\item Algoritmos ES -> threeDC
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Integración con Kibana}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{3Ddashboard}
+  \caption{Built dashboard showing the 3 developed visualizations at the same time}
+  \label{fig:3Ddashboard}
+\end{figure}
+\end{frame}
+
+\section{Diseño y resultados}
+
+\subsection{Arquitectura}
+\begin{frame}
+\begin{figure}
+  \centering
+  \includegraphics[width=9cm, keepaspectratio]{3dcharts-architecture}
+  \caption{Arquitectura de archivos del plugin}
+\end{figure}
+\end{frame}
+
+\subsection{Funcionamiento}
+
+\begin{frame}{Menú Kibana}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{my3viz-inmenu}
+  \label{fig:my3viz-inmenu}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Tarta 3D}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{pie-aggregations-menu}
+  \label{fig:pie-aggregations-menu}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Barras 3D}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{onlybars3D}
+  \caption{3D bars chart}
+  \label{fig:onlybars3D}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Burbujas 3D}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{onlybubbles3D}
+  \caption{3D Bubble chart}
+  \label{fig:onlybubbles3D}
+\end{figure}
+\end{frame}
+
+
+\subsection{Publicación del software}
+
+\begin{frame}{Publicación}
+
+\begin{itemize}
+\item \textbf {Github}
+\item \textbf {Página web}
+\item \textbf {Known plugins} - equipo Elastic
+\item \textbf {1000 visitas, 35 clones}
+\end{itemize}
+
+\end{frame}
+
+\section{Conclusiones}
+\subsection{Conocimientos aplicados}
+
+\begin{frame}\frametitle{Asignaturas relacionadas}
+{\LARGE
+\begin{itemize}
+\item \textbf{Fundamentos de Programación}
+\item \textbf{Sistemas Telemáticos I}
+\item \textbf{Sistemas Telemáticos II}
+\item \textbf{Bases de Lenguajes de Programación}
+\item \textbf{Metodología de la Programación}
+\item \textbf{Programación Orientada a Objetos}
+\item \textbf{Sistemas y Aplicaciones Telemáticas}
+\item \textbf{Ingeniería del Software}
+\item \textbf{Diseño de Base de Datos}
+\item \textbf{Aplicaciones Multimedia Interactivas Distribuidas y Escalables}
+
+\end{itemize}
+}
+\end{frame}
+
+\subsection{Lecciones aprendidas}
+\begin{frame}\frametitle{Lecciones aprendidas}
+{\LARGE
+\begin{itemize}
+\item \textbf{Javascript y tecnologías asociadas}
+\item \textbf{Uso y adaptación a la herramienta open source Kibana}
+\item \textbf{Manejo de la base de datos NoSQL ElasticSearch}
+\item \textbf{Resolución de problemas de programación mediante lectura de código de otros}
+\item \textbf{Manejo del entorno de la comunidad de programación: control del código con git y github, foros, chats, comunicación con otros desarrolladores}
+\item \textbf{Uso de \LaTeX}
+\end{itemize}
+}
+\end{frame}
+
+\subsection{Costes y esfuerzo personal}
+\begin{itemize}
+\item 900 líneas de código.
+\item Fase de 'investigación': 2 años
+\item 5 meses a tiempo completo.
+\item Grandes dificultades: JavaScript, Kibana. Semanas atascado. Días para 3 líneas de código.
+\end{itemize}
+
+\subsection{Trabajos futuros}
+\begin{frame}\frametitle{Trabajos futuros}
+{\LARGE
+\begin{enumerate}
+\item \textbf{Añadir algún gráfico 3D más}
+\item \textbf{Trabajar en dimensionamiento automático del mundo 3D para adaptarse al usuario: tamaño del div, centrar escena, ...}
+\item \textbf{Añadir opciones extra para la escena 3D: colores de los gráficos, iluminación, materiales,...}
+\item \textbf{Hacer optimización de rendimiento}
+\end{enumerate}
+}
+\end{frame}
+
+\begin{frame}\frametitle{Enlaces}
+{\LARGE
+\begin{itemize}
+\item \textbf{Web del proyecto}: \url{https://github.com/virusu/3D_kibana_charts_vis}
+\item \textbf{Repositorio GitHub}: \url{https://virusu.github.io/3D_kibana_charts_vis/}
+\item \textbf{Kibana Known-Plugins page}: \url{https://www.elastic.co/guide/en/kibana/current/known-plugins.html}
+\end{itemize}
+}
+\end{frame}
+
+\subsection{Demo}
+
+\begin{frame}\frametitle{Demo}
+\end{frame}
+\end{document}
