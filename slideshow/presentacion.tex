@@ -61,34 +61,41 @@
     \column{0.5\textwidth}
 \begin{figure}
   \centering
-  \includegraphics[width=9cm, keepaspectratio]{grafana}
+  \includegraphics[width=6cm, keepaspectratio]{grafana}
   \caption{Graphana Dashboard}
   \label{fig:grafana}
 \end{figure}
     \column{0.5\textwidth}
 \begin{figure}
   \centering
-  \includegraphics[width=9cm, keepaspectratio]{keen-io}
+  \includegraphics[width=6cm, keepaspectratio]{keen-io}
   \caption{Keen.io Dashboard}
   \label{fig:keen-io}
 \end{figure}
   \end{columns}
+\end{frame}
 
+
+\begin{frame}\frametitle{Visualización de datos}
+
+  \begin{columns}[t]
+    \column{0.5\textwidth}
 \begin{figure}
   \centering
-  \includegraphics[width=9cm, keepaspectratio]{qlikview}
+  \includegraphics[width=6cm, keepaspectratio]{qlikview}
   \caption{Qlikview Dashboard}
   \label{fig:qlikview}
 \end{figure}
-
+    \column{0.5\textwidth}
 \begin{figure}
   \centering
-  \includegraphics[width=9cm, keepaspectratio]{tableau}
+  \includegraphics[width=6cm, keepaspectratio]{tableau}
   \caption{Tableau Dashboard}
   \label{fig:tableau}
 \end{figure}
-
+  \end{columns}
 \end{frame}
+
 
 \begin{frame}\frametitle{Kibana}
 
@@ -126,7 +133,9 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 
 \section{Tecnologías utilizadas} 
 
-\begin{frame}\frametitle{Tecnologías utilizadas} 
+\begin{frame}\frametitle{Tecnologías utilizadas}
+
+\begin{block}{}
 {\LARGE 
 \begin{itemize}
 \item {HTML5}
@@ -139,12 +148,8 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \item {ThreeDC.js}
 \end{itemize}
 }
+\end{block}
 \end{frame}
-
-%\begin{figure}
-%\includegraphics[scahle=0.2]{convection} 
-%\caption{show an example picture}
-%\end{figure}
 
 \section{Desarrollo} \label{desarrollo}
 \subsection{Metodología}
@@ -157,7 +162,8 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \end{frame}
 \subsection{Sprints}
 
-\begin{frame}\frametitle{Iteraciones} 
+\begin{frame}\frametitle{Iteraciones}
+\begin{block}{}
 {\LARGE 
 \begin{itemize}
 \item \textbf{Sprint 0}: Investigación y exploración de tecnologías
@@ -167,63 +173,69 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \item \textbf{Sprint 4}: Integración en Kibana
 \end{itemize}
 }
+\end{block}
 \end{frame}
 
-\begin{frame}{Investigación}
+\begin{frame}{Sprint 0 - Investigación}
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{arquitectura-old-pfc}
-  \caption{Proposed architecture}
+  \includegraphics[width=10cm, keepaspectratio]{arquitectura-old-pfc}
+  \caption{Arquitectura inicial propuesta}
   \label{fig:arquitectura-old-pfc}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Primeros sistemas}
+\begin{frame}{Sprint 1 - Primeros sistemas}
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{index-ES-threeDC}
-  \caption{Html page showing the result of an ES query and a threeDC chart}
+  \includegraphics[width=7cm, keepaspectratio]{index-ES-threeDC}
+  \caption{Servidor HTML - página con resultado ES y escena threedc}
   \label{fig:index-ES-threeDC}
 \end{figure}
 
+\end{frame}
+
+\begin{frame}{Sprint 1 - Primeros sistemas}
 \begin{figure}
   \centering
-  \includegraphics[width=18cm, keepaspectratio]{elasticsearch-app-ncommits}
+  \includegraphics[width=10cm, keepaspectratio]{elasticsearch-app-ncommits}
   \caption{Custom app plugin result}
   \label{fig:elasticsearch-app-ncommits}
 \end{figure}
-
 \end{frame}
 
-\begin{frame}{Tarta 3D}
+\begin{frame}{Sprint 2. Tarta 3D}
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{only-threejsprueba}
+  \includegraphics[width=10cm, keepaspectratio]{only-threejsprueba}
   \caption{Three.js scene correctly inserted in Kibana}
   \label{fig:only-threejsprueba}
 \end{figure}
+\end{frame}
 
+\begin{frame}{Sprint 2. Tarta 3D}
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{onlypie3D}
+  \includegraphics[width=10cm, keepaspectratio]{onlypie3D}
   \caption{Tarta 3D integrada en Kibana}
   \label{fig:onlypie3D}
 \end{figure}
-
 \end{frame}
 
-\begin{frame}{Tratamiento de datos}
+\begin{frame}{Sprint 3. Tratamiento de datos}
 
+\begin{block}{Dos tratamientos diferentes}
 \begin{itemize}
 \item Buckets, Metrics y elasticSearch
 \item Algoritmos ES -> threeDC
 \end{itemize}
+\end{block}
 \end{frame}
 
-\begin{frame}{Integración con Kibana}
+\begin{frame}{Sprint 4. Integración con Kibana}
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{3Ddashboard}
+  \includegraphics[width=10cm, keepaspectratio]{3Ddashboard}
   \caption{Built dashboard showing the 3 developed visualizations at the same time}
   \label{fig:3Ddashboard}
 \end{figure}
@@ -235,7 +247,7 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \begin{frame}
 \begin{figure}
   \centering
-  \includegraphics[width=9cm, keepaspectratio]{3dcharts-architecture}
+  \includegraphics[width=11.4cm, keepaspectratio]{3dcharts-architecture}
   \caption{Arquitectura de archivos del plugin}
 \end{figure}
 \end{frame}
@@ -245,7 +257,7 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \begin{frame}{Menú Kibana}
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{my3viz-inmenu}
+  \includegraphics[width=10cm, keepaspectratio]{my3viz-inmenu}
   \label{fig:my3viz-inmenu}
 \end{figure}
 \end{frame}
@@ -253,16 +265,17 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \begin{frame}{Tarta 3D}
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{pie-aggregations-menu}
-  \label{fig:pie-aggregations-menu}
+  \includegraphics[width=10cm, keepaspectratio]{onlypie3D}
+  \caption{Gráfico de tarta 3D}
+  \label{fig:onlypie3D}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Barras 3D}
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{onlybars3D}
-  \caption{3D bars chart}
+  \includegraphics[width=10cm, keepaspectratio]{onlybars3D}
+  \caption{Gráfico de barras 3D}
   \label{fig:onlybars3D}
 \end{figure}
 \end{frame}
@@ -270,8 +283,8 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \begin{frame}{Burbujas 3D}
 \begin{figure}
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{onlybubbles3D}
-  \caption{3D Bubble chart}
+  \includegraphics[width=10cm, keepaspectratio]{onlybubbles3D}
+  \caption{Gráfico de burbujas 3D}
   \label{fig:onlybubbles3D}
 \end{figure}
 \end{frame}
@@ -279,21 +292,24 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 
 \subsection{Publicación del software}
 
-\begin{frame}{Publicación}
+\begin{frame}{Publicación y repercusión}
 
+\begin{block}{}
 \begin{itemize}
 \item \textbf {Github}
 \item \textbf {Página web}
 \item \textbf {Known plugins} - equipo Elastic
 \item \textbf {1000 visitas, 35 clones}
 \end{itemize}
-
+\end{block}
 \end{frame}
 
 \section{Conclusiones}
 \subsection{Conocimientos aplicados}
 
 \begin{frame}\frametitle{Asignaturas relacionadas}
+
+\begin{block}{}
 {\LARGE
 \begin{itemize}
 \item \textbf{Fundamentos de Programación}
@@ -306,13 +322,14 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \item \textbf{Ingeniería del Software}
 \item \textbf{Diseño de Base de Datos}
 \item \textbf{Aplicaciones Multimedia Interactivas Distribuidas y Escalables}
-
 \end{itemize}
 }
+\end{block}
 \end{frame}
 
 \subsection{Lecciones aprendidas}
 \begin{frame}\frametitle{Lecciones aprendidas}
+\begin{block}{}
 {\LARGE
 \begin{itemize}
 \item \textbf{Javascript y tecnologías asociadas}
@@ -323,18 +340,25 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \item \textbf{Uso de \LaTeX}
 \end{itemize}
 }
+\end{block}
 \end{frame}
 
 \subsection{Costes y esfuerzo personal}
+
+\begin{frame}\frametitle{Costes y esfuerzo personal}
+\begin{block}{}
 \begin{itemize}
 \item 900 líneas de código.
 \item Fase de 'investigación': 2 años
 \item 5 meses a tiempo completo.
 \item Grandes dificultades: JavaScript, Kibana. Semanas atascado. Días para 3 líneas de código.
 \end{itemize}
+\end{block}
+\end{frame}
 
 \subsection{Trabajos futuros}
 \begin{frame}\frametitle{Trabajos futuros}
+\begin{block}{}
 {\LARGE
 \begin{enumerate}
 \item \textbf{Añadir algún gráfico 3D más}
@@ -343,9 +367,11 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \item \textbf{Hacer optimización de rendimiento}
 \end{enumerate}
 }
+\end{block}
 \end{frame}
 
 \begin{frame}\frametitle{Enlaces}
+\begin{block}{}
 {\LARGE
 \begin{itemize}
 \item \textbf{Web del proyecto}: \url{https://github.com/virusu/3D_kibana_charts_vis}
@@ -353,6 +379,7 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \item \textbf{Kibana Known-Plugins page}: \url{https://www.elastic.co/guide/en/kibana/current/known-plugins.html}
 \end{itemize}
 }
+\end{block}
 \end{frame}
 
 \subsection{Demo}
