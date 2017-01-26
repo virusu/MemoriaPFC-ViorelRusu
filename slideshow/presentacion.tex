@@ -17,7 +17,7 @@
 
 \usepackage[latin1]{inputenc}
 \usepackage{listings}
-\usepackage{float} 
+\usepackage{float}
 
 
 \beamersetuncovermixins{\opaqueness<1>{25}}{\opaqueness<2->{15}}
@@ -75,7 +75,6 @@
   \end{columns}
 \end{frame}
 
-
 \begin{frame}\frametitle{Visualización de datos}
 
   \begin{columns}[t]
@@ -106,6 +105,15 @@
 \end{figure}
 \end{frame}
 
+\begin{frame}\frametitle{ThreeDC}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm, keepaspectratio]{threedcexample}
+  \label{fig:threedcexample}
+\end{figure}
+\end{frame}
+
 \subsection{Objetivos}
 \begin{frame}
 \frametitle{Objetivos}
@@ -116,7 +124,7 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \item Integrar escenas tridimensionales en Kibana
 \item Integrar distintas escenas en un dashboard
 \item Permitir filtrar datos mediante clicks en los objetos 3D
-\item Ayudar a la mejora y extensión de la biblioteca gráfica 3D usada
+\item Ayudar a la mejora, corrección de bugs y extensión de la biblioteca gráfica 3D usada
 
 \end{enumerate}
 \end{block}
@@ -177,12 +185,24 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \end{frame}
 
 \begin{frame}{Sprint 0 - Investigación}
+
+  \begin{columns}[t]
+    \column{0.5\textwidth}
 \begin{figure}
   \centering
-  \includegraphics[width=10cm, keepaspectratio]{arquitectura-old-pfc}
+  \includegraphics[width=6cm, keepaspectratio]{arquitectura-old-pfc}
   \caption{Arquitectura inicial propuesta}
   \label{fig:arquitectura-old-pfc}
 \end{figure}
+    \column{0.5\textwidth}
+\begin{figure}
+  \centering
+  \includegraphics[width=6cm, keepaspectratio]{old-pfc-dygraph}
+  \caption{Resultado con Dygraphs, Django, MySQL}
+  \label{fig:old-pfc-dygraph}
+\end{figure}
+  \end{columns}
+
 \end{frame}
 
 \begin{frame}{Sprint 1 - Primeros sistemas}
@@ -207,15 +227,6 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \begin{frame}{Sprint 2. Tarta 3D}
 \begin{figure}
   \centering
-  \includegraphics[width=10cm, keepaspectratio]{only-threejsprueba}
-  \caption{Three.js scene correctly inserted in Kibana}
-  \label{fig:only-threejsprueba}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Sprint 2. Tarta 3D}
-\begin{figure}
-  \centering
   \includegraphics[width=10cm, keepaspectratio]{onlypie3D}
   \caption{Tarta 3D integrada en Kibana}
   \label{fig:onlypie3D}
@@ -227,7 +238,7 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \begin{block}{Dos tratamientos diferentes}
 \begin{itemize}
 \item Buckets, Metrics y elasticSearch
-\item Algoritmos ES -> threeDC
+\item Algoritmos de ES a threeDC
 \end{itemize}
 \end{block}
 \end{frame}
@@ -236,7 +247,7 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \begin{figure}
   \centering
   \includegraphics[width=10cm, keepaspectratio]{3Ddashboard}
-  \caption{Built dashboard showing the 3 developed visualizations at the same time}
+  \caption{Dashboard integrando los 3 tipos de gráficos 3D}
   \label{fig:3Ddashboard}
 \end{figure}
 \end{frame}
@@ -289,17 +300,16 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \end{figure}
 \end{frame}
 
-
 \subsection{Publicación del software}
 
 \begin{frame}{Publicación y repercusión}
 
 \begin{block}{}
 \begin{itemize}
-\item \textbf {Github}
-\item \textbf {Página web}
-\item \textbf {Known plugins} - equipo Elastic
-\item \textbf {1000 visitas, 35 clones}
+\item \textbf{Web del proyecto}: \url{https://github.com/virusu/3D_kibana_charts_vis}
+\item \textbf{Repositorio GitHub}: \url{https://virusu.github.io/3D_kibana_charts_vis/}
+\item \textbf{Kibana Known-Plugins page}: \url{https://www.elastic.co/guide/en/kibana/current/known-plugins.html}
+\item \textbf {Aprox. 1000 visitas y 40 clones}
 \end{itemize}
 \end{block}
 \end{frame}
@@ -370,20 +380,15 @@ Integrar un sistema de visualización de datos en 3 dimensiones en un sistema com
 \end{block}
 \end{frame}
 
-\begin{frame}\frametitle{Enlaces}
-\begin{block}{}
-{\LARGE
-\begin{itemize}
-\item \textbf{Web del proyecto}: \url{https://github.com/virusu/3D_kibana_charts_vis}
-\item \textbf{Repositorio GitHub}: \url{https://virusu.github.io/3D_kibana_charts_vis/}
-\item \textbf{Kibana Known-Plugins page}: \url{https://www.elastic.co/guide/en/kibana/current/known-plugins.html}
-\end{itemize}
-}
-\end{block}
-\end{frame}
-
 \subsection{Demo}
 
 \begin{frame}\frametitle{Demo}
+\begin{figure}
+  \centering
+  \includegraphics[width=11cm, keepaspectratio]{demo-time}
+  \label{fig:only-threejsprueba}
+\end{figure}
+
+
 \end{frame}
 \end{document}
